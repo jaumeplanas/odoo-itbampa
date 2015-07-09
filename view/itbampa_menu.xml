@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <menuitem name="AMPA" id="base.menu_itbampa" icon="terp-users" sequence="10" groups="group_itbampa_user,group_itbampa_admin"/>
+    <menuitem name="My AMPA" id="menu_itbampa_my" sequence="10" parent="base.menu_itbampa" groups="group_itbampa_user,group_itbampa_admin" />
+    <menuitem name="Management" id="menu_itbampa_mgnt" sequence="20" parent="base.menu_itbampa" groups="group_itbampa_admin" />
+    <menuitem name="Configuration" id="menu_itbampa_conf" sequence="30" parent="base.menu_itbampa" groups="group_itbampa_admin"/>
+  </data>
+</openerp>

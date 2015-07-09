@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data noupdate="1">
+    <!-- Users group for members -->
+    <record model="res.groups" id="group_itbampa_user">
+      <field name="name">AMPA users group</field>
+      <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!-- Users group for admin members -->
+    <record model="res.groups" id="group_itbampa_admin">
+      <field name="name">AMPA admins group</field>
+      <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+  </data>
+</openerp>

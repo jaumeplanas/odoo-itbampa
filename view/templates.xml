@@ -1,0 +1,9 @@
+<openerp>
+  <data>
+    <template id="assets_backend" name="itbampa css assets" inherit_id="web.assets_backend">
+      <xpath expr="link[last()]" position="after">
+        <link rel="stylesheet" href="/itbampa/static/src/css/itbampa.css" type="text/css"/>
+      </xpath>
+    </template>
+  </data>
+</openerp>

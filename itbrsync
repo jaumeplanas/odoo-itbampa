@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -vrz --del /home/jaume/dev/odoo-itbampa/ odoo@192.168.1.218:/home/odoo/addons/itbampa/itbampa
