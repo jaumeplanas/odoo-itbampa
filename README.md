@@ -1,15 +1,13 @@
 # ITB AMPA
-## Install
 
-    def fname(arg):
-      pass
-    ITBAMPA = 'pepa'
-      a = Model.sudo()
-pepa
+## Odoo v8 module for AMPAs
 
-Lola vol anar lluny
-    però no sap com
+Basic management of:
 
-    És quan faig dos salts de línia, oi?
+* AMPA Members
+* AMPA Boards
+* Lunch service outsourcing
+* SEPA payments
 
-Això funciona, `però?`
+And more to come.
+
