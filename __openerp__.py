@@ -25,9 +25,13 @@
     # always loaded
     'data': [
         'security/itbampa_security.xml',
+        'security/ir.model.access.csv',
         'view/templates.xml',
         'view/itbampa_menu.xml',
         'view/partner_view.xml',
+        'view/board_role_view.xml',
+        'view/board_view.xml',
+        'workflow/board_wkf.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

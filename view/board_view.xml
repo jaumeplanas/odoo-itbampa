@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Tree View for Boards -->
+    <record model="ir.ui.view" id="itbampa_boards_tree">
+      <field name="name">Boards</field>
+      <field name="model">itbampa.boards</field>
+      <field name="arch" type="xml">
+        <tree string="Boards">
+          <field name="name"/>
+          <field name="date_start"/>
+          <field name="date_end"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Form View for Boards -->
+    <record model="ir.ui.view" id="itbampa_boards_form">
+      <field name="name">Boards</field>
+      <field name="model">itbampa.boards</field>
+      <field name="arch" type="xml">
+        <form string="Boards">
+            <header>
+              <button string="Close Board" type="workflow" name="close"
+                states="open" class="oe_highlight" groups="itbampa.group_itbampa_admin" />
+              <button string="Open Board" type="workflow" name="open"
+                states="closed" class="oe_highlight" groups="itbampa.group_itbampa_admin"/>
+              <field name="state" widget="statusbar"/>
+            </header>
+          <sheet>
+            <div class="oe_title oe_left">
+              <h1>
+                <field name="name" default_focus="1" placeholder="Name" />
+              </h1>
+            </div>
+            <group>
+              <field name="date_start"/>
+              <field name="date_end"/>
+            </group>
+            <group>
+              <field name="members" nolabel="1"/>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+    <!-- Window actions -->
+    <record id="action_itbampa_boards" model="ir.actions.act_window">
+      <field name="name">Boards</field>
+      <field name="res_model">itbampa.boards</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_itbampa_board_tree">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="itbampa_boards_tree"/>
+      <field name="act_window_id" ref="action_itbampa_boards"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_itbampa_boards_form">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="itbampa_boards_form"/>
+      <field name="act_window_id" ref="action_itbampa_boards"/>
+    </record>
+    <!-- Tree View for Board Members -->
+    <record model="ir.ui.view" id="itbampa_board_members_tree">
+      <field name="name">Board Members</field>
+      <field name="model">itbampa.board.members</field>
+      <field name="arch" type="xml">
+        <tree string="Board Members">
+          <field name="partner"/>
+          <field name="role"/>
+          <field name="mobile"/>
+          <field name="email"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Form View for Board Members -->
+    <record model="ir.ui.view" id="itbampa_board_members_form">
+      <field name="name">Board Members</field>
+      <field name="model">itbampa.board.members</field>
+      <field name="arch" type="xml">
+        <form string="Board Members">
+          <sheet>
+            <group>
+              <field name="partner"/>
+              <field name="role"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- Menu -->
+    <menuitem name="Boards" id="menu_itbampa_mgnt_boards" sequence="20" parent="menu_itbampa_mgnt" action="action_itbampa_boards" />
+  </data>
+</openerp>

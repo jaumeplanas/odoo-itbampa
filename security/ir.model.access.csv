@@ -5,15 +5,3 @@ access_itbampa_board_members_user,access.itbampa.board.members.user,itbampa.mode
 access_itbampa_board_members_admin,access.itbampa.board.members.admin,itbampa.model_itbampa_board_members,group_itbampa_admin,1,1,1,1
 access_itbampa_boards_user,access.itbampa.boards.user,itbampa.model_itbampa_boards,group_itbampa_user,1,0,0,0
 access_itbampa_boards_admin,access.itbampa.boards.admin,itbampa.model_itbampa_boards,group_itbampa_admin,1,1,1,1
-access_itbampa_courses_user,access.itbampa.courses.user,itbampa.model_itbampa_course,group_itbampa_user,1,0,0,0
-access_itbampa_courses_admin,access.itbampa.courses.admin,itbampa.model_itbampa_course,group_itbampa_admin,1,1,1,1
-access_itbampa_enrolments_user,access.itbampa.enrolments.user,itbampa.model_itbampa_enrolment,group_itbampa_user,1,0,0,0
-access_itbampa_enrolments_admin,access.itbampa.enrolments.admin,itbampa.model_itbampa_enrolment,group_itbampa_admin,1,1,1,1
-access_itbampa_promotion_user,access.itbampa.promotion.user,itbampa.model_itbampa_promotion,group_itbampa_user,1,0,0,0
-access_itbampa_promotion_admin,access.itbampa.promotion.admin,itbampa.model_itbampa_promotion,group_itbampa_admin,1,1,1,1
-access_itbampa_attendee_user,access.itbampa.attendee.user,itbampa.model_itbampa_attendee,group_itbampa_user,1,0,0,0
-access_itbampa_attendee_admin,access.itbampa.attendee.admin,itbampa.model_itbampa_attendee,group_itbampa_admin,1,1,1,1
-access_itbampa_event_user,access.itbampa.event.user,itbampa.model_itbampa_event,group_itbampa_user,1,0,0,0
-access_itbampa_event_admin,access.itbampa.event.admin,itbampa.model_itbampa_event,group_itbampa_admin,1,1,1,1
-access_itbampa_event_template_user,access.itbampa.event.template.user,itbampa.model_itbampa_event_template,group_itbampa_user,1,0,0,0
-access_itbampa_event_template_admin,access.itbampa.event.template.admin,itbampa.model_itbampa_event_template,group_itbampa_admin,1,1,1,1
