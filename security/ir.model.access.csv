@@ -5,3 +5,7 @@ access_itbampa_board_members_user,access.itbampa.board.members.user,itbampa.mode
 access_itbampa_board_members_admin,access.itbampa.board.members.admin,itbampa.model_itbampa_board_members,group_itbampa_admin,1,1,1,1
 access_itbampa_boards_user,access.itbampa.boards.user,itbampa.model_itbampa_boards,group_itbampa_user,1,0,0,0
 access_itbampa_boards_admin,access.itbampa.boards.admin,itbampa.model_itbampa_boards,group_itbampa_admin,1,1,1,1
+access_itbampa_school_calendar_user,access.itbampa.school.calendar.user,itbampa.model_itbampa_school_calendar,group_itbampa_user,1,0,0,0
+access_itbampa_school_calendar_admin,access.itbampa.school.calendar.admin,itbampa.model_itbampa_school_calendar,group_itbampa_admin,1,1,1,1
+access_itbampa_school_calendar_holiday_user,access.itbampa.school.calendar.holiday.user,itbampa.model_itbampa_school_calendar_holiday,group_itbampa_user,1,0,0,0
+access_itbampa_school_calendar_holiday_admin,access.itbampa.school.calendar.holiday.admin,itbampa.model_itbampa_school_calendar_holiday,group_itbampa_admin,1,1,1,1

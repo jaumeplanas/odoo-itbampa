@@ -32,6 +32,7 @@
         'view/board_role_view.xml',
         'view/board_view.xml',
         'workflow/board_wkf.xml',
+        'view/school_calendar_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

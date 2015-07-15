@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Tree View for School Calendar -->
+    <record model="ir.ui.view" id="itbampa_school_calendar_tree">
+      <field name="name">School Calendars</field>
+      <field name="model">itbampa.school.calendar</field>
+      <field name="arch" type="xml">
+        <tree string="School Calendars">
+          <field name="name"/>
+          <field name="date_start"/>
+          <field name="date_end"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Form View for School Calendar -->
+    <record model="ir.ui.view" id="itbampa_school_calendar_form">
+      <field name="name">School Calendar</field>
+      <field name="model">itbampa.school.calendar</field>
+      <field name="arch" type="xml">
+        <form string="School Calendar">
+            <group>
+                <group>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="lective_dates"/>
+                    <field name="is_lective"/>
+                </group>
+            </group>
+            <group string="Holiday Ranges">
+              <field name="holiday_ids" nolabel="1">
+                  <tree editable="bottom">
+                      <field name="name"/>
+                      <field name="date_start"/>
+                      <field name="date_end"/>
+                  </tree>
+              </field>
+            </group>
+        </form>
+      </field>
+    </record>
+    <!-- Window actions -->
+    <record id="action_itbampa_school_calendar" model="ir.actions.act_window">
+      <field name="name">School Calendar</field>
+      <field name="res_model">itbampa.school.calendar</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_itbampa_school_calendar_tree">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="itbampa_school_calendar_tree"/>
+      <field name="act_window_id" ref="action_itbampa_school_calendar"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_itbampa_school_calendar_form">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="itbampa_school_calendar_form"/>
+      <field name="act_window_id" ref="action_itbampa_school_calendar"/>
+    </record>
+    <!-- Menu -->
+    <menuitem name="School Calendars" id="menu_itbampa_conf_school_calendar" sequence="30" parent="menu_itbampa_conf" action="action_itbampa_school_calendar" />
+  </data>
+</openerp>
