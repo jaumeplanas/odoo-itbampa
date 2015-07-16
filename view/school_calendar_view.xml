@@ -19,24 +19,30 @@
       <field name="model">itbampa.school.calendar</field>
       <field name="arch" type="xml">
         <form string="School Calendar">
-            <group>
+            <header>
+                <button string="Compute Student's Current Course" type="object" name="action_compute_current_course" class="oe_highlight" />
+            </header>
+            <sheet>
                 <group>
-                    <field name="name"/>
-                    <field name="date_start"/>
-                    <field name="date_end"/>
-                    <field name="lective_dates"/>
-                    <field name="is_lective"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="lective_dates"/>
+                    </group>
+                    <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
                 </group>
-            </group>
-            <group string="Holiday Ranges">
-              <field name="holiday_ids" nolabel="1">
-                  <tree editable="bottom">
-                      <field name="name"/>
-                      <field name="date_start"/>
-                      <field name="date_end"/>
-                  </tree>
-              </field>
-            </group>
+                <group string="Holiday Ranges">
+                    <field name="holiday_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </tree>
+                    </field>
+                </group>
+            </sheet>
         </form>
       </field>
     </record>

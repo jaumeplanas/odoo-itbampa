@@ -23,8 +23,10 @@
       <field name="arch" type="xml">
         <search string="Partners">
           <field string="Name" name="name"/>
-          <filter string="Students" name="student" icon="terp-personal" domain="[('ampa_partner_type','=','student')]" help="Students"/>
-          <filter string="Tutors" name="tutor" icon="terp-personal" domain="[('ampa_partner_type','=','tutor')]" help="Tutors"/>
+          <field string="Current Course" name="current_course"/>
+          <filter string="Students" name="student" domain="[('ampa_partner_type','=','student')]" help="Students"/>
+          <filter string="Tutors" name="tutor" domain="[('ampa_partner_type','=','tutor')]" help="Tutors"/>
+          <filter string="Current Course" domain="[]" context="{'group_by':'current_course'}"/>
         </search>
       </field>
     </record>
@@ -42,7 +44,7 @@
                             <field name="billing_partner_id" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" domain="[('ampa_partner_type', '=', 'tutor')]" />
                         </group>
                         <group>
-                            <field name="birthdate" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
+                            <field name="ampa_birthdate" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
                             <field name="course_lag" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
                             <field name="current_course" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
                         </group>
@@ -52,7 +54,7 @@
                             <tree string="Members">
                                 <field name="name"/>
                                 <field name="ampa_partner_type"/>
-                                <field name="birthdate"/>
+                                <field name="ampa_birthdate"/>
                                 <field name="current_course"/>
                                 <field name="billing_partner_id"/>
                             </tree>

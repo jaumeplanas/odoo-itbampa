@@ -100,14 +100,20 @@ class SchoolCalendar(models.Model):
         date_o = date.toordinal()
         return date_o in rr_o
 
-    @api.multi
-    def _is_lective_date(self):
-        for rec in self:
-            rec.is_lective = rec.is_lective_day(date(2015, 6, 23))
-
     name = fields.Selection(_session_name_get(), string="Session", required=True)
     date_start = fields.Date("Start Date", required=True)
     date_end = fields.Date("End Date", required=True)
     holiday_ids = fields.One2many('itbampa.school.calendar.holiday', 'school_calendar_id')
     lective_dates = fields.Integer("Lective Days", compute='_get_lective_dates')
-    is_lective = fields.Boolean("Is 2015-06-23 Lective Day", compute='_is_lective_date')
+
+    @api.one
+    def action_compute_current_course(self):
+        current_year = int(self.name)
+        partners = self.env['res.partner'].search([('ampa_partner_type', '=', 'student')])
+        for partner in partners:
+            partner_year = fields.Date.from_string(partner.ampa_birthdate).year
+            age = current_year - partner_year - partner.course_lag
+            if age in range(3, 12):
+                partner.current_course = str(age)
+            else:
+                partner.current_course = '0'
