@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
     <!-- Tree View for Board Roles -->
@@ -40,6 +40,6 @@
       <field name="act_window_id" ref="action_itbampa_board_roles"/>
     </record>
     <!-- Menu -->
-    <menuitem name="Board Roles" id="menu_itbampa_conf_board_roles" sequence="10" parent="menu_itbampa_conf" action="action_itbampa_board_roles" />
+    <menuitem name="Board Roles" id="menu_itbampa_conf_board_roles" sequence="10" parent="menu_itbampa_conf" action="action_itbampa_board_roles"/>
   </data>
 </openerp>

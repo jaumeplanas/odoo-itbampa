@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="wkf_lunch_event" model="workflow">
+      <field name="name">AMPA lunch events workflow</field>
+      <field name="osv">itbampa.lunch.event</field>
+      <field name="on_create">True</field>
+    </record>
+
+    <record id="lunch_event_open" model="workflow.activity">
+      <field name="name">Open</field>
+      <field  name="wkf_id" ref="wkf_lunch_event"/>
+      <field  eval="True" name="flow_start"/>
+      <field name="kind">function</field>
+      <field name="action">action_open()</field>
+    </record>
+    <record id="lunch_event_closed" model="workflow.activity">
+      <field name="name">Closed</field>
+      <field  name="wkf_id" ref="wkf_lunch_event"/>
+      <field name="kind">function</field>
+      <field name="action">action_closed()</field>
+    </record>
+    <record id="lunch_event_billed" model="workflow.activity">
+      <field name="name">Billed</field>
+      <field  name="wkf_id" ref="wkf_lunch_event"/>
+      <field name="kind">function</field>
+      <field name="action">action_billed()</field>
+    </record>
+
+    <record id="lunch_event_open_to_closed" model="workflow.transition">
+      <field  name="act_from" ref="lunch_event_open"/>
+      <field  name="act_to" ref="lunch_event_closed"/>
+      <field name="signal">close_lunch_event</field>
+    </record>
+    <record id="lunch_event_closed_to_open" model="workflow.transition">
+      <field  name="act_from" ref="lunch_event_closed"/>
+      <field  name="act_to" ref="lunch_event_open"/>
+      <field name="signal">open_lunch_event</field>
+    </record>
+    <record id="lunch_event_closed_to_billed" model="workflow.transition">
+      <field  name="act_from" ref="lunch_event_closed"/>
+      <field  name="act_to" ref="lunch_event_billed"/>
+      <field name="signal">bill_lunch_event</field>
+    </record>
+  </data>
+</openerp>

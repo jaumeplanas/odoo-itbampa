@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+<!-- Lunch Daily Report -->
+    <report  attachment="'LlistatMenjador'+object.date_start+'.pdf'" attachment_use="False" id="report_lunch_event_pdf" model="itbampa.lunch.event" name="itbampa.report_lunch_event" report_type="qweb-pdf" string="Print Lunch Event"/>
+<!-- Lunch Tree View -->
+    <record id="itbampa_lunch_tree" model="ir.ui.view">
+      <field name="name">Lunchs</field>
+      <field name="model">itbampa.lunch.event</field>
+      <field name="arch" type="xml">
+        <tree string="Lunchs">
+          <field  name="date_start"/>
+          <field  name="state"/>
+          <field  name="total_eaters"/>
+          <field  invisible="1" name="user_id"/>
+        </tree>
+      </field>
+    </record>
+<!-- Lunch Form View -->
+    <record id="itbampa_lunch_form" model="ir.ui.view">
+      <field name="name">Lunchs</field>
+      <field name="model">itbampa.lunch.event</field>
+      <field name="arch" type="xml">
+        <form string="Lunchs">
+          <header>
+            <button  class="oe_highlight" groups="itbampa.group_itbampa_admin" name="close_lunch_event" states="open" string="Close Lunch Event" type="workflow"/>
+            <button  class="oe_highlight" groups="itbampa.group_itbampa_admin" name="open_lunch_event" states="closed" string="Open Lunch Event" type="workflow"/>
+            <field  name="state" widget="statusbar"/>
+          </header>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <label for="name" string="Fitxa del menjador del dia"/>
+                <field class="oe_inline" name="name" readonly="1"/>
+              </h1>
+            </div>
+            <div class="oe_button_box oe_right" name="buttons">
+              <button  name="%(report_lunch_event_pdf)d" string="Print Lunch Event" type="action"/>
+            </div>
+            <group col="4">
+              <field  attrs="{'readonly': [('state', '!=', 'open')]}" name="date_start" string="Date"/>
+              <field  name="total_eaters"/>
+              <field  invisible="1" name="user_id"/>
+            </group>
+            <group string="Eaters">
+              <field attrs="{'readonly': [('state', '!=', 'open')]}" name="eater_ids" nolabel="1">
+                <tree editable="bottom" string="Eaters">
+                  <field  name="partner_id"/>
+                  <field  domain="[('categ_id', 'child_of', %(itbampa.product_category_lunch)d)]" name="lunch_product_id"/>
+                  <field  name="comment"/>
+                </tree>
+              </field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+<!-- Lunch Calendar View -->
+    <record id="itbampa_lunch_calendar" model="ir.ui.view">
+      <field name="name">Events</field>
+      <field name="model">itbampa.lunch.event</field>
+      <field name="arch" type="xml">
+        <calendar all_day="all_day" color="user_id" date_start="date_start" display="Total [total_eaters]" quick_add="0" string="Lunchs">
+          <field  name="name"/>
+          <field  name="total_eaters"/>
+          <field  name="state"/>
+        </calendar>
+      </field>
+    </record>
+<!-- Lunch actions -->
+    <record id="action_itbampa_lunchs" model="ir.actions.act_window">
+      <field name="name">Lunchs</field>
+      <field name="res_model">itbampa.lunch.event</field>
+      <field name="view_mode">calendar,tree,form</field>
+    </record>
+    <record id="action_itbampa_lunchs_view_tree" model="ir.actions.act_window.view">
+      <field  eval="2" name="sequence"/>
+      <field name="view_mode">tree</field>
+      <field  name="view_id" ref="itbampa_lunch_tree"/>
+      <field  name="act_window_id" ref="action_itbampa_lunchs"/>
+    </record>
+    <record id="action_itbampa_lunchs_view_form" model="ir.actions.act_window.view">
+      <field  eval="3" name="sequence"/>
+      <field name="view_mode">form</field>
+      <field  name="view_id" ref="itbampa_lunch_form"/>
+      <field  name="act_window_id" ref="action_itbampa_lunchs"/>
+    </record>
+    <record id="action_itbampa_lunchs_view_calendar" model="ir.actions.act_window.view">
+      <field  eval="1" name="sequence"/>
+      <field name="view_mode">calendar</field>
+      <field  name="view_id" ref="itbampa_lunch_calendar"/>
+      <field  name="act_window_id" ref="action_itbampa_lunchs"/>
+    </record>
+<!-- Lunch Menu -->
+    <menuitem  action="action_itbampa_lunchs" id="menu_itbampa_mngt_lunchs" name="Lunchs" parent="menu_itbampa_mgnt" sequence="30"/>
+  </data>
+</openerp>

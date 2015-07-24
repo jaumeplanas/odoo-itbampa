@@ -106,9 +106,27 @@ class SchoolCalendar(models.Model):
     holiday_ids = fields.One2many('itbampa.school.calendar.holiday', 'school_calendar_id')
     lective_dates = fields.Integer("Lective Days", compute='_get_lective_dates')
 
+class ComputeCourseWizard(models.TransientModel):
+    _name = 'school.course.compute.wizard'
+
+    def _get_default_school_calendar(self):
+        return self.env['itbampa.school.calendar'].browse(self._context.get('active_id'))
+
     @api.one
+    @api.depends('school_calendar_id')
+    def _get_school_calendar_char(self):
+        year = int(self.school_calendar_id.name)
+        self.school_calendar = "%d - %d" % (year, year+1)
+
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', default=_get_default_school_calendar)
+    school_calendar = fields.Char("School Calendar Selected", compute='_get_school_calendar_char', store=True)
+    state = fields.Selection([('inici', 'inici'), ('final', 'final')], default='inici')
+    total_computed = fields.Integer("Total Computed", readonly=True)
+
+    @api.multi
     def action_compute_current_course(self):
-        current_year = int(self.name)
+        total_computed = 0
+        current_year = int(self.school_calendar_id.name)
         partners = self.env['res.partner'].search([('ampa_partner_type', '=', 'student')])
         for partner in partners:
             partner_year = fields.Date.from_string(partner.ampa_birthdate).year
@@ -117,3 +135,14 @@ class SchoolCalendar(models.Model):
                 partner.current_course = str(age)
             else:
                 partner.current_course = '0'
+            total_computed += 1
+        self.write({'state': 'final', 'total_computed': total_computed})
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'school.course.compute.wizard',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': self.id,
+            'views': [(False, 'form')],
+            'target': 'new'
+            }

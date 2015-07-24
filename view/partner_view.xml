@@ -1,102 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <!-- Tree View for Members -->
-    <record model="ir.ui.view" id="itbampa_members_tree">
+<!-- Tree View for Members -->
+    <record id="itbampa_members_tree" model="ir.ui.view">
       <field name="name">Members</field>
       <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <tree string="Members">
-          <field name="name"/>
-          <field name="ampa_partner_type"/>
-          <field name="current_course" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
-          <field name="billing_partner_id" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
-          <field name="user_id" invisible="1"/>
+          <field  name="name"/>
+          <field  name="ampa_partner_type"/>
+          <field  attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" name="current_course"/>
+          <field  attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" name="billing_partner_id"/>
+          <field  invisible="1" name="user_id"/>
         </tree>
       </field>
     </record>
-    <!-- Filter View for Members -->
-    <record model="ir.ui.view" id="itbampa_members_filter">
+<!-- Filter View for Members -->
+    <record id="itbampa_members_filter" model="ir.ui.view">
       <field name="name">res.partner.select</field>
       <field name="model">res.partner</field>
       <field name="priority">50</field>
       <field name="arch" type="xml">
         <search string="Partners">
-          <field string="Name" name="name"/>
-          <field string="Current Course" name="current_course"/>
-          <filter string="Students" name="student" domain="[('ampa_partner_type','=','student')]" help="Students"/>
-          <filter string="Tutors" name="tutor" domain="[('ampa_partner_type','=','tutor')]" help="Tutors"/>
-          <filter string="Current Course" domain="[]" context="{'group_by':'current_course'}"/>
+          <field  name="name" string="Name"/>
+          <field  name="current_course" string="Current Course"/>
+          <filter  domain="[('ampa_partner_type','=','student')]" help="Students" name="student" string="Students"/>
+          <filter  domain="[('ampa_partner_type','=','tutor')]" help="Tutors" name="tutor" string="Tutors"/>
+          <filter  context="{'group_by':'current_course'}" domain="[]" string="Current Course"/>
         </search>
       </field>
     </record>
-    <!-- Inherited Form View -->
-    <record model="ir.ui.view" id="view_partner_form">
-        <field name="name">res.partner.form.inherit</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='internal_notes']" position="before">
-                <page string="AMPA">
-                    <group>
-                        <group>
-                            <field name="ampa_partner_type"/>
-                            <field name="billing_partner_id" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" domain="[('ampa_partner_type', '=', 'tutor')]" />
-                        </group>
-                        <group>
-                            <field name="ampa_birthdate" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
-                            <field name="course_lag" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
-                            <field name="current_course" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"/>
-                        </group>
-                    </group>
-                    <group string="Children" attrs="{'invisible': [('ampa_partner_type', '!=', 'tutor')]}">
-                        <field name="partner_child_ids" nolabel="1" domain="[('ampa_partner_type', '=', 'student')]">
-                            <tree string="Members">
-                                <field name="name"/>
-                                <field name="ampa_partner_type"/>
-                                <field name="ampa_birthdate"/>
-                                <field name="current_course"/>
-                                <field name="billing_partner_id"/>
-                            </tree>
-                        </field>
-                    </group>
-                    <group string="Tutors" attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}">
-                        <field name="partner_tutor_ids" nolabel="1" domain="[('ampa_partner_type', '=', 'tutor')]">
-                            <tree string="Members">
-                                <field name="name"/>
-                                <field name="ampa_partner_type"/>
-                            </tree>
-                        </field>
-                    </group>
-                </page>
-            </xpath>
-        </field>
-    </record>     <!-- Action records -->
+<!-- Inherited Form View -->
+    <record id="view_partner_form" model="ir.ui.view">
+      <field name="name">res.partner.form.inherit</field>
+      <field name="model">res.partner</field>
+      <field  name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='internal_notes']" position="before">
+          <page string="AMPA">
+            <group>
+              <group>
+                <field  name="ampa_partner_type"/>
+                <field  domain="[('ampa_partner_type', '=', 'tutor')]" name="billing_partner_id"/>
+              </group>
+              <group>
+                <field  attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" name="ampa_birthdate"/>
+                <field  attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" name="course_lag"/>
+                <field  attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" name="current_course"/>
+              </group>
+            </group>
+            <group attrs="{'invisible': [('ampa_partner_type', '!=', 'tutor')]}" string="Children">
+              <field domain="[('ampa_partner_type', '=', 'student')]" name="partner_child_ids" nolabel="1">
+                <tree string="Members">
+                  <field  name="name"/>
+                  <field  name="ampa_partner_type"/>
+                  <field  name="ampa_birthdate"/>
+                  <field  name="current_course"/>
+                  <field  name="billing_partner_id"/>
+                </tree>
+              </field>
+            </group>
+            <group attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}" string="Tutors">
+              <field domain="[('ampa_partner_type', '=', 'tutor')]" name="partner_tutor_ids" nolabel="1">
+                <tree string="Members">
+                  <field  name="name"/>
+                  <field  name="ampa_partner_type"/>
+                </tree>
+              </field>
+            </group>
+          </page>
+          <page string="Lunch">
+            <group col="4">
+              <field  name="is_lunch_subscribed"/>
+              <field  attrs="{'invisible': [('ampa_partner_type', 'not in', ['student', 'tutor'])]}" domain="[('categ_id', 'child_of', %(itbampa.product_category_lunch)d)]" name="lunch_product_id"/>
+            </group>
+            <group string="Lunchs">
+              <field name="lunch_ids" nolabel="1">
+                <tree create="0">
+                  <field  name="lunch_id"/>
+                  <field  name="lunch_product_id"/>
+                  <field  name="comment"/>
+                </tree>
+              </field>
+            </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+<!-- Action records -->
     <record id="action_itbampa_partners" model="ir.actions.act_window">
       <field name="name">Members</field>
       <field name="res_model">res.partner</field>
-      <field name="search_view_id" ref="itbampa_members_filter"/>
+      <field  name="search_view_id" ref="itbampa_members_filter"/>
       <field name="context">{"search_default_student": 1}</field>
     </record>
-    <record model="ir.actions.act_window.view" id="action_membership_members_view_tree">
-      <field name="sequence" eval="2"/>
+    <record id="action_membership_members_view_tree" model="ir.actions.act_window.view">
+      <field  eval="2" name="sequence"/>
       <field name="view_mode">tree</field>
-      <field name="view_id" ref="itbampa_members_tree"/>
-      <field name="act_window_id" ref="action_itbampa_partners"/>
+      <field  name="view_id" ref="itbampa_members_tree"/>
+      <field  name="act_window_id" ref="action_itbampa_partners"/>
     </record>
-    <record model="ir.actions.act_window.view" id="action_membership_members_view_form">
-      <field name="sequence" eval="3"/>
+    <record id="action_membership_members_view_form" model="ir.actions.act_window.view">
+      <field  eval="3" name="sequence"/>
       <field name="view_mode">form</field>
-      <field name="view_id" ref="base.view_partner_form"/>
-      <field name="act_window_id" ref="action_itbampa_partners"/>
+      <field  name="view_id" ref="base.view_partner_form"/>
+      <field  name="act_window_id" ref="action_itbampa_partners"/>
     </record>
-    <record model="ir.actions.act_window.view" id="action_membership_members_view_kanban">
-      <field name="sequence" eval="1"/>
+    <record id="action_membership_members_view_kanban" model="ir.actions.act_window.view">
+      <field  eval="1" name="sequence"/>
       <field name="view_mode">kanban</field>
-      <field name="view_id" ref="base.res_partner_kanban_view"/>
-      <field name="act_window_id" ref="action_itbampa_partners"/>
+      <field  name="view_id" ref="base.res_partner_kanban_view"/>
+      <field  name="act_window_id" ref="action_itbampa_partners"/>
     </record>
-    <!-- Menu Record -->
-    <menuitem name="Members" id="menu_itbampa_mngt_members" sequence="10" parent="menu_itbampa_mgnt" action="action_itbampa_partners" />
+<!-- Menu Record -->
+    <menuitem  action="action_itbampa_partners" id="menu_itbampa_mngt_members" name="Members" parent="menu_itbampa_mgnt" sequence="10"/>
   </data>
 </openerp>

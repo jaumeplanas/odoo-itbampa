@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="product_category_lunch" model="product.category">
+      <field name="name">Lunch Products Category</field>
+    </record>
+    <record id="product_product_lunch_1" model="product.product">
+      <field name="name">Lunch Monthly</field>
+      <field  name="categ_id" ref="product_category_lunch"/>
+      <field name="standard_price">5.00</field>
+      <field name="list_price">5.00</field>
+      <field name="type">service</field>
+      <field name="description">This type of service include basic monitoring of products.</field>
+      <field name="description_sale">This type of service include basic monitoring of products.</field>
+    </record>
+  </data>
+</openerp>
