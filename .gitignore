@@ -1,2 +1,6 @@
 **/*.pyc
 doc/_build/**/*
+/.settings
+/.project
+/.pydevproject
+/.Rhistory

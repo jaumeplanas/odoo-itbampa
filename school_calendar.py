@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date
+from dateutil.rrule import rrule, rruleset, WEEKLY, DAILY, MO, TU, WE, TH, FR
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError, Warning
-from datetime import date
-from dateutil.rrule import *
 
+
+# from dateutil.rrule import *
 def _session_name_get():
     year = date.today().year
-    return [(str(x), '%d-%d' % (x, x+1)) for x in reversed(range(year-10,year+10))]
+    return [(str(x), '%d-%d' % (x, x + 1)) for x in reversed(range(year - 10, year + 10))]
 
 class SchoolCalendarHoliday(models.Model):
     '''Holiday ranges'''
@@ -66,7 +68,7 @@ class SchoolCalendar(models.Model):
         rr.rrule(rr0)
         for holiday in self.holiday_ids:
             holiday_date_start = fields.Date.from_string(holiday.date_start)
-            holiday_date_end   = fields.Date.from_string(holiday.date_end)
+            holiday_date_end = fields.Date.from_string(holiday.date_end)
             rrz = rrule(DAILY, dtstart=holiday_date_start, until=holiday_date_end)
             rr.exrule(rrz)
         return len(list(rr))
@@ -93,7 +95,7 @@ class SchoolCalendar(models.Model):
         rr.rrule(rr0)
         for holiday in self.holiday_ids:
             holiday_date_start = fields.Date.from_string(holiday.date_start)
-            holiday_date_end   = fields.Date.from_string(holiday.date_end)
+            holiday_date_end = fields.Date.from_string(holiday.date_end)
             rrz = rrule(DAILY, dtstart=holiday_date_start, until=holiday_date_end)
             rr.exrule(rrz)
         rr_o = map(lambda x: x.toordinal(), rr)
@@ -116,7 +118,7 @@ class ComputeCourseWizard(models.TransientModel):
     @api.depends('school_calendar_id')
     def _get_school_calendar_char(self):
         year = int(self.school_calendar_id.name)
-        self.school_calendar = "%d - %d" % (year, year+1)
+        self.school_calendar = "%d - %d" % (year, year + 1)
 
     school_calendar_id = fields.Many2one('itbampa.school.calendar', default=_get_default_school_calendar)
     school_calendar = fields.Char("School Calendar Selected", compute='_get_school_calendar_char', store=True)

@@ -1,104 +1,111 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-    <!-- Compute Course Wizard -->
-    <record model="ir.ui.view" id="compute_course_wizard_form_view">
-      <field name="name">compute.course.wizard.form</field>
-      <field name="model">school.course.compute.wizard</field>
-      <field name="arch" type="xml">
-        <form>
-          <group states="inici">
-            <p>
-              This Wizards lets you to update the current course for each student, according to the selected Calendar from which this Wizard has been called, and the birthdate and any lagging course for each student.
-            </p>
-          </group>
-          <field name="school_calendar_id" invisible="1"/>
-          <field name="state" invisible="1"/>
-          <group>
-            <field name="school_calendar"/>
-          </group>
-          <group states="final" string="Course updating has been successfull.">
-            <field name="total_computed"/>
-          </group>
-          <footer>
-            <button name="action_compute_current_course" type="object" string="Update students's current course" class="oe_highlight" states="inici"/>
-            <button special="cancel" string="Cancel" states="inici"/>
-            <button special="cancel" string="OK" states="final"/>
-          </footer>
-        </form>
-      </field>
-    </record>
-    <record id="action_itbampa_compute_course_wizard" model="ir.actions.act_window">
-      <field name="name">Compute Course Wizard</field>
-      <field name="res_model">school.course.compute.wizard</field>
-      <field name="target">new</field>
-    </record>
-    <record model="ir.actions.act_window.view" id="action_itbampa_compute_course_wizard_form">
-      <field name="view_mode">form</field>
-      <field name="view_id" ref="compute_course_wizard_form_view"/>
-      <field name="act_window_id" ref="action_itbampa_compute_course_wizard"/>
-    </record>
-    <!-- Tree View for School Calendar -->
-    <record model="ir.ui.view" id="itbampa_school_calendar_tree">
-      <field name="name">School Calendars</field>
-      <field name="model">itbampa.school.calendar</field>
-      <field name="arch" type="xml">
-        <tree string="School Calendars">
-          <field name="name"/>
-          <field name="date_start"/>
-          <field name="date_end"/>
-        </tree>
-      </field>
-    </record>
-    <!-- Form View for School Calendar -->
-    <record model="ir.ui.view" id="itbampa_school_calendar_form">
-      <field name="name">School Calendar</field>
-      <field name="model">itbampa.school.calendar</field>
-      <field name="arch" type="xml">
-        <form string="School Calendar">
-          <header>
-            <button string="Compute Student's Current Course" type="action" name="%(action_itbampa_compute_course_wizard)d" class="oe_highlight"/>
-          </header>
-          <sheet>
-            <group>
-              <group>
-                <field name="name"/>
-                <field name="lective_dates"/>
-              </group>
-              <group>
-                <field name="date_start"/>
-                <field name="date_end"/>
-              </group>
-            </group>
-            <group string="Holiday Ranges">
-              <field name="holiday_ids" nolabel="1">
-                <tree editable="bottom">
-                  <field name="name"/>
-                  <field name="date_start"/>
-                  <field name="date_end"/>
-                </tree>
-              </field>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
-    <!-- Window actions -->
-    <record id="action_itbampa_school_calendar" model="ir.actions.act_window">
-      <field name="name">School Calendar</field>
-      <field name="res_model">itbampa.school.calendar</field>
-    </record>
-    <record model="ir.actions.act_window.view" id="action_itbampa_school_calendar_tree">
-      <field name="view_mode">tree</field>
-      <field name="view_id" ref="itbampa_school_calendar_tree"/>
-      <field name="act_window_id" ref="action_itbampa_school_calendar"/>
-    </record>
-    <record model="ir.actions.act_window.view" id="action_itbampa_school_calendar_form">
-      <field name="view_mode">form</field>
-      <field name="view_id" ref="itbampa_school_calendar_form"/>
-      <field name="act_window_id" ref="action_itbampa_school_calendar"/>
-    </record>
-    <!-- Menu -->
-    <menuitem name="School Calendars" id="menu_itbampa_conf_school_calendar" sequence="30" parent="menu_itbampa_conf" action="action_itbampa_school_calendar"/>
-  </data>
+	<data>
+		<!-- Compute Course Wizard -->
+		<record model="ir.ui.view" id="compute_course_wizard_form_view">
+			<field name="name">compute.course.wizard.form</field>
+			<field name="model">school.course.compute.wizard</field>
+			<field name="arch" type="xml">
+				<form>
+					<group states="inici">
+						<p>
+							This Wizards lets you to update the current course for each student,
+							according to the selected Calendar from which this Wizard has
+							been called, and the birthdate and any lagging course for each
+							student.
+						</p>
+					</group>
+					<field name="school_calendar_id" invisible="1" />
+					<field name="state" invisible="1" />
+					<group>
+						<field name="school_calendar" />
+					</group>
+					<group states="final" string="Course updating has been successfull.">
+						<field name="total_computed" />
+					</group>
+					<footer>
+						<button name="action_compute_current_course" type="object"
+							string="Update students's current course" class="oe_highlight"
+							states="inici" />
+						<button special="cancel" string="Cancel" states="inici" />
+						<button special="cancel" string="OK" states="final" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="action_itbampa_compute_course_wizard" model="ir.actions.act_window">
+			<field name="name">Compute Course Wizard</field>
+			<field name="res_model">school.course.compute.wizard</field>
+			<field name="target">new</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="action_itbampa_compute_course_wizard_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="compute_course_wizard_form_view" />
+			<field name="act_window_id" ref="action_itbampa_compute_course_wizard" />
+		</record>
+		<!-- Tree View for School Calendar -->
+		<record model="ir.ui.view" id="itbampa_school_calendar_tree">
+			<field name="name">School Calendars</field>
+			<field name="model">itbampa.school.calendar</field>
+			<field name="arch" type="xml">
+				<tree string="School Calendars">
+					<field name="name" />
+					<field name="date_start" />
+					<field name="date_end" />
+				</tree>
+			</field>
+		</record>
+		<!-- Form View for School Calendar -->
+		<record model="ir.ui.view" id="itbampa_school_calendar_form">
+			<field name="name">School Calendar</field>
+			<field name="model">itbampa.school.calendar</field>
+			<field name="arch" type="xml">
+				<form string="School Calendar">
+					<header>
+						<button string="Compute Student's Current Course" type="action"
+							name="%(action_itbampa_compute_course_wizard)d" class="oe_highlight" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="lective_dates" />
+							</group>
+							<group>
+								<field name="date_start" />
+								<field name="date_end" />
+							</group>
+						</group>
+						<group string="Holiday Ranges">
+							<field name="holiday_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name="name" />
+									<field name="date_start" />
+									<field name="date_end" />
+								</tree>
+							</field>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- Window actions -->
+		<record id="action_itbampa_school_calendar" model="ir.actions.act_window">
+			<field name="name">School Calendar</field>
+			<field name="res_model">itbampa.school.calendar</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="action_itbampa_school_calendar_tree">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="itbampa_school_calendar_tree" />
+			<field name="act_window_id" ref="action_itbampa_school_calendar" />
+		</record>
+		<record model="ir.actions.act_window.view" id="action_itbampa_school_calendar_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="itbampa_school_calendar_form" />
+			<field name="act_window_id" ref="action_itbampa_school_calendar" />
+		</record>
+		<!-- Menu -->
+		<menuitem name="School Calendars" id="menu_itbampa_conf_school_calendar"
+			sequence="30" parent="menu_itbampa_conf" action="action_itbampa_school_calendar" />
+	</data>
 </openerp>

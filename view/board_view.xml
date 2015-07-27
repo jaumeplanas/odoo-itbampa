@@ -1,103 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-<!-- Board Report -->
-    <report  attachment="'board.pdf'" attachment_use="False" file="report_board" id="report_board_pdf" model="itbampa.boards" name="itbampa.informe_board" report_type="qweb-pdf" string="Print Board"/>
-    <report  attachment="'board.pdf'" attachment_use="False" file="report_board" id="report_board_html" model="itbampa.boards" name="itbampa.informe_board" report_type="qweb-html" string="Print Board"/>
-<!-- Tree View for Boards -->
-    <record id="itbampa_boards_tree" model="ir.ui.view">
-      <field name="name">Boards</field>
-      <field name="model">itbampa.boards</field>
-      <field name="arch" type="xml">
-        <tree string="Boards">
-          <field  name="name"/>
-          <field  name="date_start"/>
-          <field  name="date_end"/>
-          <field  name="state"/>
-        </tree>
-      </field>
-    </record>
-<!-- Form View for Boards -->
-    <record id="itbampa_boards_form" model="ir.ui.view">
-      <field name="name">Boards</field>
-      <field name="model">itbampa.boards</field>
-      <field name="arch" type="xml">
-        <form string="Boards">
-          <header>
-            <button  class="oe_highlight" groups="itbampa.group_itbampa_admin" name="close" states="open" string="Close Board" type="workflow"/>
-            <button  class="oe_highlight" groups="itbampa.group_itbampa_admin" name="open" states="closed" string="Open Board" type="workflow"/>
-            <field  name="state" widget="statusbar"/>
-          </header>
-          <sheet>
-            <div class="oe_title">
-              <label  class="oe_edit_only" for="name"/>
-              <h1>
-                <field  name="name" placeholder="Name"/>
-              </h1>
-            </div>
-            <div class="oe_button_box oe_right" name="buttons">
-              <button  name="%(report_board_pdf)d" string="Print PDF Report" type="action"/>
-              <button  name="%(report_board_html)d" string="Print HTML Report" type="action"/>
-            </div>
-            <group col="4" string="Dates">
-              <field  name="date_start"/>
-              <field  name="date_end"/>
-            </group>
-            <group string="Members">
-              <field  name="members" nolabel="1"/>
-            </group>
-          </sheet>
-          <div class="oe_chatter">
-            <field  name="message_follower_ids" widget="mail_followers"/>
-            <field  name="message_ids" widget="mail_thread"/>
-          </div>
-        </form>
-      </field>
-    </record>
-<!-- Window actions -->
-    <record id="action_itbampa_boards" model="ir.actions.act_window">
-      <field name="name">Boards</field>
-      <field name="res_model">itbampa.boards</field>
-    </record>
-    <record id="action_itbampa_board_tree" model="ir.actions.act_window.view">
-      <field name="view_mode">tree</field>
-      <field  name="view_id" ref="itbampa_boards_tree"/>
-      <field  name="act_window_id" ref="action_itbampa_boards"/>
-    </record>
-    <record id="action_itbampa_boards_form" model="ir.actions.act_window.view">
-      <field name="view_mode">form</field>
-      <field  name="view_id" ref="itbampa_boards_form"/>
-      <field  name="act_window_id" ref="action_itbampa_boards"/>
-    </record>
-<!-- Tree View for Board Members -->
-    <record id="itbampa_board_members_tree" model="ir.ui.view">
-      <field name="name">Board Members</field>
-      <field name="model">itbampa.board.members</field>
-      <field name="arch" type="xml">
-        <tree string="Board Members">
-          <field  name="partner"/>
-          <field  name="role"/>
-          <field  name="mobile"/>
-          <field  name="email"/>
-        </tree>
-      </field>
-    </record>
-<!-- Form View for Board Members -->
-    <record id="itbampa_board_members_form" model="ir.ui.view">
-      <field name="name">Board Members</field>
-      <field name="model">itbampa.board.members</field>
-      <field name="arch" type="xml">
-        <form string="Board Members">
-          <sheet>
-            <group>
-              <field  name="partner"/>
-              <field  name="role"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
-<!-- Menu -->
-    <menuitem  action="action_itbampa_boards" id="menu_itbampa_mgnt_boards" name="Boards" parent="menu_itbampa_mgnt" sequence="20"/>
-  </data>
+	<data>
+		<!-- Board Report -->
+		<report attachment="'board.pdf'" attachment_use="False" file="report_board"
+			id="report_board_pdf" model="itbampa.boards" name="itbampa.informe_board"
+			report_type="qweb-pdf" string="Print Board" />
+		<report attachment="'board.pdf'" attachment_use="False" file="report_board"
+			id="report_board_html" model="itbampa.boards" name="itbampa.informe_board"
+			report_type="qweb-html" string="Print Board" />
+		<!-- Tree View for Boards -->
+		<record id="itbampa_boards_tree" model="ir.ui.view">
+			<field name="name">Boards</field>
+			<field name="model">itbampa.boards</field>
+			<field name="arch" type="xml">
+				<tree string="Boards">
+					<field name="name" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		<!-- Form View for Boards -->
+		<record id="itbampa_boards_form" model="ir.ui.view">
+			<field name="name">Boards</field>
+			<field name="model">itbampa.boards</field>
+			<field name="arch" type="xml">
+				<form string="Boards">
+					<header>
+						<button class="oe_highlight" groups="itbampa.group_itbampa_admin"
+							name="close" states="open" string="Close Board" type="workflow" />
+						<button class="oe_highlight" groups="itbampa.group_itbampa_admin"
+							name="open" states="closed" string="Open Board" type="workflow" />
+						<field name="state" widget="statusbar" />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label class="oe_edit_only" for="name" />
+							<h1>
+								<field name="name" placeholder="Name" />
+							</h1>
+						</div>
+						<div class="oe_button_box oe_right" name="buttons">
+							<button name="%(report_board_pdf)d" string="Print PDF Report"
+								type="action" />
+							<button name="%(report_board_html)d" string="Print HTML Report"
+								type="action" />
+						</div>
+						<group col="4" string="Dates">
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+						<group string="Members">
+							<field name="members" nolabel="1" />
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+		<!-- Window actions -->
+		<record id="action_itbampa_boards" model="ir.actions.act_window">
+			<field name="name">Boards</field>
+			<field name="res_model">itbampa.boards</field>
+		</record>
+		<record id="action_itbampa_board_tree" model="ir.actions.act_window.view">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="itbampa_boards_tree" />
+			<field name="act_window_id" ref="action_itbampa_boards" />
+		</record>
+		<record id="action_itbampa_boards_form" model="ir.actions.act_window.view">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="itbampa_boards_form" />
+			<field name="act_window_id" ref="action_itbampa_boards" />
+		</record>
+		<!-- Tree View for Board Members -->
+		<record id="itbampa_board_members_tree" model="ir.ui.view">
+			<field name="name">Board Members</field>
+			<field name="model">itbampa.board.members</field>
+			<field name="arch" type="xml">
+				<tree string="Board Members">
+					<field name="partner" />
+					<field name="role" />
+					<field name="mobile" />
+					<field name="email" />
+				</tree>
+			</field>
+		</record>
+		<!-- Form View for Board Members -->
+		<record id="itbampa_board_members_form" model="ir.ui.view">
+			<field name="name">Board Members</field>
+			<field name="model">itbampa.board.members</field>
+			<field name="arch" type="xml">
+				<form string="Board Members">
+					<sheet>
+						<group>
+							<field name="partner" />
+							<field name="role" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- Menu -->
+		<menuitem action="action_itbampa_boards" id="menu_itbampa_mgnt_boards"
+			name="Boards" parent="menu_itbampa_mgnt" sequence="20" />
+	</data>
 </openerp>

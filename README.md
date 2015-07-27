@@ -10,4 +10,3 @@ Basic management of:
 * SEPA payments
 
 And more to come.
-

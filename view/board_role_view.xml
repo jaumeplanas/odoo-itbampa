@@ -1,45 +1,46 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-    <!-- Tree View for Board Roles -->
-    <record model="ir.ui.view" id="itbampa_board_roles_tree">
-      <field name="name">Board Roles</field>
-      <field name="model">itbampa.board.roles</field>
-      <field name="arch" type="xml">
-        <tree string="Board Roles">
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
-    <!-- Form View for Board Roles -->
-    <record model="ir.ui.view" id="itbampa_board_roles_form">
-      <field name="name">Board Roles</field>
-      <field name="model">itbampa.board.roles</field>
-      <field name="arch" type="xml">
-        <form string="Board Roles">
-          <group>
-            <field name="name"/>
-          </group>
-        </form>
-      </field>
-    </record>
-    <!-- Action window -->
-    <record id="action_itbampa_board_roles" model="ir.actions.act_window">
-      <field name="name">Board Roles</field>
-      <field name="view_mode">tree,form</field>
-      <field name="res_model">itbampa.board.roles</field>
-    </record>
-    <record model="ir.actions.act_window.view" id="action_itbampa_board_roles_tree">
-      <field name="view_mode">tree</field>
-      <field name="view_id" ref="itbampa_board_roles_tree"/>
-      <field name="act_window_id" ref="action_itbampa_board_roles"/>
-    </record>
-    <record model="ir.actions.act_window.view" id="action_itbampa_board_roles_form">
-      <field name="view_mode">form</field>
-      <field name="view_id" ref="itbampa_board_roles_form"/>
-      <field name="act_window_id" ref="action_itbampa_board_roles"/>
-    </record>
-    <!-- Menu -->
-    <menuitem name="Board Roles" id="menu_itbampa_conf_board_roles" sequence="10" parent="menu_itbampa_conf" action="action_itbampa_board_roles"/>
-  </data>
+	<data>
+		<!-- Tree View for Board Roles -->
+		<record model="ir.ui.view" id="itbampa_board_roles_tree">
+			<field name="name">Board Roles</field>
+			<field name="model">itbampa.board.roles</field>
+			<field name="arch" type="xml">
+				<tree string="Board Roles">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!-- Form View for Board Roles -->
+		<record model="ir.ui.view" id="itbampa_board_roles_form">
+			<field name="name">Board Roles</field>
+			<field name="model">itbampa.board.roles</field>
+			<field name="arch" type="xml">
+				<form string="Board Roles">
+					<group>
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+		<!-- Action window -->
+		<record id="action_itbampa_board_roles" model="ir.actions.act_window">
+			<field name="name">Board Roles</field>
+			<field name="view_mode">tree,form</field>
+			<field name="res_model">itbampa.board.roles</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="action_itbampa_board_roles_tree">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="itbampa_board_roles_tree" />
+			<field name="act_window_id" ref="action_itbampa_board_roles" />
+		</record>
+		<record model="ir.actions.act_window.view" id="action_itbampa_board_roles_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="itbampa_board_roles_form" />
+			<field name="act_window_id" ref="action_itbampa_board_roles" />
+		</record>
+		<!-- Menu -->
+		<menuitem name="Board Roles" id="menu_itbampa_conf_board_roles"
+			sequence="10" parent="menu_itbampa_conf" action="action_itbampa_board_roles" />
+	</data>
 </openerp>

@@ -1,145 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-    <template id="assets_backend" inherit_id="web.assets_backend" name="itbampa css assets">
-      <xpath expr="link[last()]" position="after">
-        <link  href="/itbampa/static/src/css/itbampa.css" rel="stylesheet" type="text/css"/>
-      </xpath>
-    </template>
-    <template id="layout" inherit_id="report.layout" name="itbampa reports css assets">
-      <xpath expr="//head/link[last()]" position="after">
-        <link  href="/itbampa/static/src/css/itbampa_report.css" rel="stylesheet" type="text/css"/>
-      </xpath>
-    </template>
-    <template id="itbampa.informe_board">
-      <t t-call="report.html_container">
-        <t t-as="o" t-foreach="docs">
-          <t t-call="report.internal_layout">
-            <div class="page">
-              <h1  t-field="o.name"/>
-              <div class="row mb32">
-                <table class="table table-condensed">
-                  <thead>
-                    <tr class="text-center">
-                      <th>From</th>
-                      <th>To</th>
-                      <th>State</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <span  t-field="o.date_start"/>
-                      </td>
-                      <td>
-                        <span  t-field="o.date_end"/>
-                      </td>
-                      <td>
-                        <span  t-field="o.state"/>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="row mb32">
-                <table class="table table-condensed">
-                  <thead>
-                    <tr class="text-center">
-                      <th>Member</th>
-                      <th>Role</th>
-                      <th>Mobile</th>
-                      <th>Email</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <t t-as="m" t-foreach="o.members">
-                      <tr>
-                        <td>
-                          <span  t-field="m.partner"/>
-                        </td>
-                        <td>
-                          <span  t-field="m.role"/>
-                        </td>
-                        <td>
-                          <span  t-field="m.mobile"/>
-                        </td>
-                        <td>
-                          <span  t-field="m.email"/>
-                        </td>
-                      </tr>
-                    </t>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </t>
-        </t>
-      </t>
-    </template>
-    <template id="itbampa.report_lunch_event">
-      <t t-call="report.html_container">
-        <t t-as="o" t-foreach="docs">
-          <t t-call="report.internal_layout">
-            <div class="page">
-              <h1><i class="fa fa-calendar"></i> Llistat d'assistència al Menjador</h1>
-              <div class="row mb8">
-                <table class="table table-condensed">
-                  <thead>
-                    <tr class="text-center">
-                      <th>Data</th>
-                      <th>Recompte</th>
-                      <th>Estat</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <span  t-field="o.name"/>
-                      </td>
-                      <td>
-                        <span  t-field="o.total_eaters"/>
-                      </td>
-                      <td>
-                        <span  t-field="o.state"/>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="row">
-                <table class="table table-condensed">
-                  <thead>
-                    <tr class="text-center">
-                      <th>Ha faltat?</th>
-                      <th>Nom</th>
-                      <th>Producte</th>
-                      <th>Comentaris</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <t t-as="m" t-foreach="o.eater_ids">
-                      <tr>
-                        <td>
-                          <i class="fa fa-square-o"></i>
-                        </td>
-                        <td>
-                          <span  t-field="m.partner_id"/>
-                        </td>
-                        <td>
-                          <span  t-field="m.lunch_product_id"/>
-                        </td>
-                        <td>
-                          <span  t-field="m.comment"/>
-                        </td>
-                      </tr>
-                    </t>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </t>
-        </t>
-      </t>
-    </template>
-  </data>
+	<data>
+		<template id="assets_backend" inherit_id="web.assets_backend"
+			name="itbampa css assets">
+			<xpath expr="link[last()]" position="after">
+				<link href="/itbampa/static/src/css/itbampa.css" rel="stylesheet"
+					type="text/css" />
+			</xpath>
+		</template>
+		<template id="layout" inherit_id="report.layout" name="itbampa reports css assets">
+			<xpath expr="//head/link[last()]" position="after">
+				<link href="/itbampa/static/src/css/itbampa_report.css" rel="stylesheet"
+					type="text/css" />
+			</xpath>
+		</template>
+		<template id="itbampa.informe_board">
+			<t t-call="report.html_container">
+				<t t-as="o" t-foreach="docs">
+					<t t-call="report.internal_layout">
+						<div class="page">
+							<h1 t-field="o.name" />
+							<div class="row mb32">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>From</th>
+											<th>To</th>
+											<th>State</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<span t-field="o.date_start" />
+											</td>
+											<td>
+												<span t-field="o.date_end" />
+											</td>
+											<td>
+												<span t-field="o.state" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row mb32">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Member</th>
+											<th>Role</th>
+											<th>Mobile</th>
+											<th>Email</th>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-as="m" t-foreach="o.members">
+											<tr>
+												<td>
+													<span t-field="m.partner" />
+												</td>
+												<td>
+													<span t-field="m.role" />
+												</td>
+												<td>
+													<span t-field="m.mobile" />
+												</td>
+												<td>
+													<span t-field="m.email" />
+												</td>
+											</tr>
+										</t>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+		<template id="itbampa.report_lunch_event">
+			<t t-call="report.html_container">
+				<t t-as="o" t-foreach="docs">
+					<t t-call="report.internal_layout">
+						<div class="page">
+							<h1>
+								<i class="fa fa-calendar"></i>
+								Llistat d'assistència al Menjador
+							</h1>
+							<div class="row mb8">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Data</th>
+											<th>Recompte</th>
+											<th>Estat</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<span t-field="o.name" />
+											</td>
+											<td>
+												<span t-field="o.total_eaters" />
+											</td>
+											<td>
+												<span t-field="o.state" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Ha faltat?</th>
+											<th>Nom</th>
+											<th>Producte</th>
+											<th>Comentaris</th>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-as="m" t-foreach="o.eater_ids">
+											<tr>
+												<td>
+													<i class="fa fa-square-o"></i>
+												</td>
+												<td>
+													<span t-field="m.partner_id" />
+												</td>
+												<td>
+													<span t-field="m.lunch_product_id" />
+												</td>
+												<td>
+													<span t-field="m.comment" />
+												</td>
+											</tr>
+										</t>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+	</data>
 </openerp>
