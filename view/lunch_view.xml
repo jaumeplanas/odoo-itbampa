@@ -43,7 +43,9 @@
 						<div class="oe_button_box oe_right" name="buttons">
 							<button name="%(report_lunch_event_pdf)d" string="Print Lunch Event"
 								type="action" />
+							<button name="update_with_registered" string="Update With Registered Members" type="object"></button>
 						</div>
+						<separator string="General Info"></separator>
 						<group col="4">
 							<field attrs="{'readonly': [('state', '!=', 'open')]}"
 								name="date_start" string="Date" />

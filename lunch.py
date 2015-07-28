@@ -7,11 +7,11 @@ from openerp.exceptions import ValidationError
 class LunchEventEaters(models.Model):
     _name = 'itbampa.lunch.event.partner'
 
-    lunch_id = fields.Many2one('itbampa.lunch.event', string="Lunch Event", required=True)
+    lunch_id = fields.Many2one('itbampa.lunch.event', string="Lunch Event", required=True, ondelete='cascade')
     partner_id = fields.Many2one(
-            'res.partner', string="Lunch Eater", domain="[('ampa_partner_type', 'in', ['tutor', 'student'])]", required=True)
+            'res.partner', string="Lunch Eater", domain="[('ampa_partner_type', 'in', ['tutor', 'student'])]", required=True, ondelete='cascade')
     comment = fields.Char("Comment")
-    lunch_product_id = fields.Many2one('product.product', "Lunch Product", required=True)
+    lunch_product_id = fields.Many2one('product.product', "Lunch Product", required=True, ondelete='cascade')
 
 
 class LunchEvent(models.Model):
@@ -29,7 +29,6 @@ class LunchEvent(models.Model):
 
     @api.onchange('date_start')
     def _on_change_name(self):
-        d = 'undef'
         if self.date_start:
             lang = self._context['lang'] or 'en_US'
             fmt = self.env['res.lang'].search(
@@ -41,6 +40,17 @@ class LunchEvent(models.Model):
         for x in self.env['res.partner'].search([('is_lunch_subscribed', '=', True)]):
             pids.append([0, 0, {'partner_id': x.id, 'lunch_product_id': x.lunch_product_id}])
         return pids
+
+    @api.one
+    def update_with_registered(self):
+        pids = []
+        registered_set = set([x.id for x in self.env['res.partner'].search([('is_lunch_subscribed', '=', True)])])
+        current_set = set([y.partner_id.id for y in self.eater_ids])
+        intersect_list = list(registered_set - current_set)
+        intersect_objs = self.env['res.partner'].browse(intersect_list)
+        for z in intersect_objs:
+            pids.append([0, 0, {'partner_id': z.id, 'lunch_product_id': z.lunch_product_id.id}])
+        self.write({'eater_ids': pids})
 
     name = fields.Char("Name")
     date_start = fields.Date(

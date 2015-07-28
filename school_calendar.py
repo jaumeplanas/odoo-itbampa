@@ -2,11 +2,11 @@
 
 from datetime import date
 from dateutil.rrule import rrule, rruleset, WEEKLY, DAILY, MO, TU, WE, TH, FR
+
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError, Warning
 
 
-# from dateutil.rrule import *
 def _session_name_get():
     year = date.today().year
     return [(str(x), '%d-%d' % (x, x + 1)) for x in reversed(range(year - 10, year + 10))]
@@ -47,6 +47,18 @@ class SchoolCalendar(models.Model):
             raise ValidationError(_("End date (%s) must be after start date (%s)" % (date_end.strftime(fmt), date_start.strftime(fmt))))
 
     @api.model
+    def get_rrules(self, dstart=None, dend=None):
+        rr = rruleset()
+        rr0 = rrule(WEEKLY, wkst=MO, byweekday=(MO, TU, WE, TH, FR), dtstart=dstart, until=dend)
+        rr.rrule(rr0)
+        for holiday in self.holiday_ids:
+            holiday_date_start = fields.Date.from_string(holiday.date_start)
+            holiday_date_end = fields.Date.from_string(holiday.date_end)
+            rrz = rrule(DAILY, dtstart=holiday_date_start, until=holiday_date_end)
+            rr.exrule(rrz)
+        return rr
+        
+    @api.model
     def count_lective_days(self, dstart=None, dend=None):
         """
         Count lective days between two dates using a Calendar.
@@ -63,14 +75,7 @@ class SchoolCalendar(models.Model):
             date_start = dstart
         if dend and (dend < date_end) and (dend > date_start):
             date_end = dend
-        rr = rruleset()
-        rr0 = rrule(WEEKLY, wkst=MO, byweekday=(MO, TU, WE, TH, FR), dtstart=date_start, until=date_end)
-        rr.rrule(rr0)
-        for holiday in self.holiday_ids:
-            holiday_date_start = fields.Date.from_string(holiday.date_start)
-            holiday_date_end = fields.Date.from_string(holiday.date_end)
-            rrz = rrule(DAILY, dtstart=holiday_date_start, until=holiday_date_end)
-            rr.exrule(rrz)
+        rr = self.get_rrules(date_start, date_end)
         return len(list(rr))
 
     @api.multi
@@ -90,14 +95,7 @@ class SchoolCalendar(models.Model):
             raise Warning(_("Date parameter is required!"))
         date_start = fields.Date.from_string(self.date_start)
         date_end = fields.Date.from_string(self.date_end)
-        rr = rruleset()
-        rr0 = rrule(WEEKLY, wkst=MO, byweekday=(MO, TU, WE, TH, FR), dtstart=date_start, until=date_end)
-        rr.rrule(rr0)
-        for holiday in self.holiday_ids:
-            holiday_date_start = fields.Date.from_string(holiday.date_start)
-            holiday_date_end = fields.Date.from_string(holiday.date_end)
-            rrz = rrule(DAILY, dtstart=holiday_date_start, until=holiday_date_end)
-            rr.exrule(rrz)
+        rr = self.get_rrules(date_start, date_end)
         rr_o = map(lambda x: x.toordinal(), rr)
         date_o = date.toordinal()
         return date_o in rr_o
