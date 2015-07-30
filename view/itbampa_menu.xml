@@ -9,5 +9,7 @@
 			parent="base.menu_itbampa" groups="group_itbampa_admin" />
 		<menuitem name="Configuration" id="menu_itbampa_conf"
 			sequence="30" parent="base.menu_itbampa" groups="group_itbampa_admin" />
+		<menuitem name="Reports" id="menu_itbampa_report" sequence="40"
+			parent="base.menu_itbampa" groups="group_itbampa_admin" />
 	</data>
 </openerp>

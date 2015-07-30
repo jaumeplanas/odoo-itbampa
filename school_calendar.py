@@ -6,8 +6,7 @@ from dateutil.rrule import rrule, rruleset, WEEKLY, DAILY, MO, TU, WE, TH, FR
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError, Warning
 
-
-def _session_name_get():
+def _get_years_selection():
     year = date.today().year
     return [(str(x), '%d-%d' % (x, x + 1)) for x in reversed(range(year - 10, year + 10))]
 
@@ -29,14 +28,20 @@ class SchoolCalendar(models.Model):
     _order = 'name desc'
 
     @api.one
+    @api.depends('year')
+    def _get_name(self):
+        y = int(self.year)
+        self.name = "%d - %d" % (y, y+1)
+    
+    @api.one
     @api.constrains('date_start', 'date_end', 'name', 'holiday_ids')
     def _check_dates(self):
         lang = self._context['lang'] or 'en_US'
         fmt = self.env['res.lang'].search([('code', '=', lang)], limit=1).date_format
         date_start = fields.Date.from_string(self.date_start)
         date_end = fields.Date.from_string(self.date_end)
-        allowed_start = date(int(self.name), 7, 1)
-        allowed_end = date(int(self.name) + 1, 6, 30)
+        allowed_start = date(int(self.year), 7, 1)
+        allowed_end = date(int(self.year) + 1, 6, 30)
         if date_start < allowed_start:
             raise ValidationError(_("Start date (%s) must be after allowed start date (%s)" % (date_start.strftime(fmt), allowed_start.strftime(fmt))))
         if date_start >= allowed_end:
@@ -100,7 +105,8 @@ class SchoolCalendar(models.Model):
         date_o = date.toordinal()
         return date_o in rr_o
 
-    name = fields.Selection(_session_name_get(), string="Session", required=True)
+    name = fields.Char(string="Session", compute='_get_name', store=True)
+    year = fields.Selection(_get_years_selection(), string="Year", required=True)
     date_start = fields.Date("Start Date", required=True)
     date_end = fields.Date("End Date", required=True)
     holiday_ids = fields.One2many('itbampa.school.calendar.holiday', 'school_calendar_id')
@@ -112,21 +118,14 @@ class ComputeCourseWizard(models.TransientModel):
     def _get_default_school_calendar(self):
         return self.env['itbampa.school.calendar'].browse(self._context.get('active_id'))
 
-    @api.one
-    @api.depends('school_calendar_id')
-    def _get_school_calendar_char(self):
-        year = int(self.school_calendar_id.name)
-        self.school_calendar = "%d - %d" % (year, year + 1)
-
     school_calendar_id = fields.Many2one('itbampa.school.calendar', default=_get_default_school_calendar)
-    school_calendar = fields.Char("School Calendar Selected", compute='_get_school_calendar_char', store=True)
     state = fields.Selection([('inici', 'inici'), ('final', 'final')], default='inici')
     total_computed = fields.Integer("Total Computed", readonly=True)
 
     @api.multi
     def action_compute_current_course(self):
         total_computed = 0
-        current_year = int(self.school_calendar_id.name)
+        current_year = int(self.school_calendar_id.year)
         partners = self.env['res.partner'].search([('ampa_partner_type', '=', 'student')])
         for partner in partners:
             partner_year = fields.Date.from_string(partner.ampa_birthdate).year

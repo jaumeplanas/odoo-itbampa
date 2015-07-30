@@ -147,5 +147,18 @@
 				</t>
 			</t>
 		</template>
+		<template id="itbampa.lunch_monthly_report">
+			<t t-call="report.html_container">
+				<t t-call="report.internal_layout">
+					<div class="page">
+						<h1>Hola</h1>
+							<p t-esc="docs"></p>
+							<p t-esc="data"></p>
+							<p t-esc="doc_model"></p>
+							<p t-esc="calendar.name"></p>
+					</div>
+				</t>
+			</t>
+		</template>
 	</data>
 </openerp>

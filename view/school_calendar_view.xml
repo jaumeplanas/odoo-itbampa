@@ -6,19 +6,20 @@
 			<field name="name">compute.course.wizard.form</field>
 			<field name="model">school.course.compute.wizard</field>
 			<field name="arch" type="xml">
-				<form>
+				<form string="Compute Course Wizard">
 					<group states="inici">
 						<p>
-							This Wizards lets you to update the current course for each student,
-							according to the selected Calendar from which this Wizard has
+							This Wizards lets you to update the current course for each
+							student,
+							according to the selected Calendar from which this Wizard
+							has
 							been called, and the birthdate and any lagging course for each
 							student.
 						</p>
 					</group>
-					<field name="school_calendar_id" invisible="1" />
 					<field name="state" invisible="1" />
 					<group>
-						<field name="school_calendar" />
+						<field name="school_calendar_id" />
 					</group>
 					<group states="final" string="Course updating has been successfull.">
 						<field name="total_computed" />
@@ -66,9 +67,15 @@
 							name="%(action_itbampa_compute_course_wizard)d" class="oe_highlight" />
 					</header>
 					<sheet>
-						<group>
-							<group>
+						<div class="oe_title">
+							<label for="name" string="Session" />
+							<h1>
 								<field name="name" />
+							</h1>
+						</div>
+						<group string="General Info">
+							<group>
+								<field name="year" string="Session"></field>
 								<field name="lective_dates" />
 							</group>
 							<group>

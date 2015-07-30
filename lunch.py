@@ -2,6 +2,9 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
+from datetime import date
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import rrule, MONTHLY
 
 
 class LunchEventEaters(models.Model):
@@ -79,3 +82,45 @@ class LunchEvent(models.Model):
 
     # When called from code
     # self.signal_workflow('bill_lunch_event')
+    
+class LunchReportWizard(models.TransientModel):
+    """Wizard to select School Calendar for Monthly Lunch Attendants"""
+    _name = 'itbampa.lunch.report.wizard'
+    
+    def _get_default_school_calendar(self):
+        return self.env['itbampa.school.calendar'].search([], limit=1)
+    
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', string="School Calendar", required=True, default=_get_default_school_calendar)
+    
+    
+    @api.multi
+    def print_monthly_report(self):
+        
+        
+#        return self.env['report'].get_action(self._ids, 'itbampa.lunch_monthly_report_action', data=data)
+
+        return {
+            'context': self._context,
+            'data': {},
+            'type': 'ir.actions.report.xml',
+            'report_name': 'itbampa.lunch_monthly_report',
+            'report_type': 'qweb-html',
+            'report_file': 'itbampa.lunch_monthly_report',
+            }
+
+
+class LunchCustomReport(models.AbstractModel):
+    _name = 'report.itbampa.lunch_monthly_report'
+    @api.multi
+    def render_html(self, data=None):
+        report_obj = self.env['report']
+        report = report_obj._get_report_from_name('itbampa.lunch_monthly_report')
+        wizo = self.env[report.model].browse(self._context.get('active_id'))
+        docargs = {
+            'doc_ids': self._ids,
+            'doc_model': report.model,
+            'docs': self._context,
+            'data': ['Tres', 'Dos'],
+            'calendar': wizo.school_calendar_id,
+        }
+        return report_obj.render('itbampa.lunch_monthly_report', docargs)
