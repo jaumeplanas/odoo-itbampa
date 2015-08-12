@@ -1,7 +1,10 @@
-.. Documentació del mòdul ITBAMPA per a Oddo 8, creada amb sphinx.
+.. Documentació del mòdul ITBAMPA per a Oddo 8, creada amb sphinx i Eclipse (ReST Editor).
 
 Mòdul ITBAMPA per a Oddo 8
 ==========================
+
+Versió 0.1
+----------
 
 Contingut:
 

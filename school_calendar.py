@@ -6,10 +6,6 @@ from dateutil.rrule import rrule, rruleset, WEEKLY, DAILY, MO, TU, WE, TH, FR
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError, Warning
 
-def _get_years_selection():
-    year = date.today().year
-    return [(str(x), '%d-%d' % (x, x + 1)) for x in reversed(range(year - 10, year + 10))]
-
 class SchoolCalendarHoliday(models.Model):
     '''Holiday ranges'''
 
@@ -30,7 +26,7 @@ class SchoolCalendar(models.Model):
     @api.one
     @api.depends('year')
     def _get_name(self):
-        y = int(self.year)
+        y = self.year
         self.name = "%d - %d" % (y, y+1)
     
     @api.one
@@ -40,8 +36,8 @@ class SchoolCalendar(models.Model):
         fmt = self.env['res.lang'].search([('code', '=', lang)], limit=1).date_format
         date_start = fields.Date.from_string(self.date_start)
         date_end = fields.Date.from_string(self.date_end)
-        allowed_start = date(int(self.year), 7, 1)
-        allowed_end = date(int(self.year) + 1, 6, 30)
+        allowed_start = date(self.year, 7, 1)
+        allowed_end = date(self.year + 1, 6, 30)
         if date_start < allowed_start:
             raise ValidationError(_("Start date (%s) must be after allowed start date (%s)" % (date_start.strftime(fmt), allowed_start.strftime(fmt))))
         if date_start >= allowed_end:
@@ -106,7 +102,7 @@ class SchoolCalendar(models.Model):
         return date_o in rr_o
 
     name = fields.Char(string="Session", compute='_get_name', store=True)
-    year = fields.Selection(_get_years_selection(), string="Year", required=True)
+    year = fields.Integer(string="Year", required=True)
     date_start = fields.Date("Start Date", required=True)
     date_end = fields.Date("End Date", required=True)
     holiday_ids = fields.One2many('itbampa.school.calendar.holiday', 'school_calendar_id')
@@ -125,15 +121,15 @@ class ComputeCourseWizard(models.TransientModel):
     @api.multi
     def action_compute_current_course(self):
         total_computed = 0
-        current_year = int(self.school_calendar_id.year)
+        current_year = self.school_calendar_id.year
         partners = self.env['res.partner'].search([('ampa_partner_type', '=', 'student')])
         for partner in partners:
             partner_year = fields.Date.from_string(partner.ampa_birthdate).year
             age = current_year - partner_year - partner.course_lag
             if age in range(3, 12):
-                partner.current_course = str(age)
+                partner.current_course = "%02d" % (age)
             else:
-                partner.current_course = '0'
+                partner.current_course = '99'
             total_computed += 1
         self.write({'state': 'final', 'total_computed': total_computed})
         return {

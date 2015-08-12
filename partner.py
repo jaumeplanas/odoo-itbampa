@@ -8,16 +8,16 @@ AMPA_PARTNER_TYPES = [
 ]
 
 COURSE_AGES = [
-        ('0', 'N/D'),
-        ('3', 'P3 Infantil'),
-        ('4', 'P4 Infantil'),
-        ('5', 'P5 Infantil'),
-        ('6', '1r Primària'),
-        ('7', '2n Primària'),
-        ('8', '3r Primària'),
-        ('9', '4t Primària'),
+        ('03', 'P3 Infantil'),
+        ('04', 'P4 Infantil'),
+        ('05', 'P5 Infantil'),
+        ('06', '1r Primària'),
+        ('07', '2n Primària'),
+        ('08', '3r Primària'),
+        ('09', '4t Primària'),
         ('10', '5è Primària'),
-        ('11', '6è Primària')
+        ('11', '6è Primària'),
+        ('99', 'N/D')
 ]
 
 
@@ -48,7 +48,7 @@ class Partner(models.Model):
     billing_partner_id = fields.Many2one(
             "res.partner", "Billing Partner", ondelete="set null")
     current_course = fields.Selection(
-            COURSE_AGES, "Current Course", readonly=True, default='0')
+            COURSE_AGES, "Current Course", readonly=True, default='99')
     is_lunch_subscribed = fields.Boolean("Is subscribed to lunchs?")
     lunch_product_id = fields.Many2one(
             'product.product', "Lunch Product", ondelete='set null')

@@ -9,3 +9,7 @@ access_itbampa_school_calendar_user,access.itbampa.school.calendar.user,itbampa.
 access_itbampa_school_calendar_admin,access.itbampa.school.calendar.admin,itbampa.model_itbampa_school_calendar,group_itbampa_admin,1,1,1,1
 access_itbampa_school_calendar_holiday_user,access.itbampa.school.calendar.holiday.user,itbampa.model_itbampa_school_calendar_holiday,group_itbampa_user,1,0,0,0
 access_itbampa_school_calendar_holiday_admin,access.itbampa.school.calendar.holiday.admin,itbampa.model_itbampa_school_calendar_holiday,group_itbampa_admin,1,1,1,1
+access_itbampa_lunch_event_user,access.itbampa.lunch.event.user,itbampa.model_itbampa_lunch_event,group_itbampa_user,1,0,0,0
+access_itbampa_lunch_event_admin,access.itbampa.lunch.event.admin,itbampa.model_itbampa_lunch_event,group_itbampa_admin,1,1,1,1
+access_itbampa_lunch_event_partner_user,access.itbampa.lunch.event.partner.user,itbampa.model_itbampa_lunch_event_partner,group_itbampa_user,1,0,0,0
+access_itbampa_lunch_event_partner_admin,access.itbampa.lunch.event.partner.admin,itbampa.model_itbampa_lunch_event_partner,group_itbampa_admin,1,1,1,1

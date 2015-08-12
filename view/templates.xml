@@ -151,11 +151,56 @@
 			<t t-call="report.html_container">
 				<t t-call="report.internal_layout">
 					<div class="page">
-						<h1>Hola</h1>
-							<p t-esc="docs"></p>
-							<p t-esc="data"></p>
-							<p t-esc="doc_model"></p>
-							<p t-esc="calendar.name"></p>
+						<t t-foreach="docs" t-as="d">
+							<div class="row">
+								<h1>
+									Llistat
+									<span t-field="d.school_calendar_id"></span>
+								</h1>
+							</div>
+							<div class="row mt16">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Month</th>
+											<th>Lective Days</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<span t-field="d.month_id"></span>
+											</td>
+											<td>
+												<span t-field="d.lective_days"></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row mt16">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Member</th>
+											<th>Total</th>
+										</tr>
+									</thead>
+									<t t-foreach="d.line_ids" t-as="l">
+										<tbody>
+											<tr>
+												<td>
+													<span t-field="l.partner"></span>
+												</td>
+												<td>
+													<span t-field="l.total"></span>
+												</td>
+											</tr>
+										</tbody>
+									</t>
+								</table>
+							</div>
+						</t>
 					</div>
 				</t>
 			</t>

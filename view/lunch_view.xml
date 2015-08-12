@@ -3,9 +3,9 @@
 	<data>
 		<!-- Report Action -->
 		<report id="lunch_monthly_report_action" model="itbampa.lunch.report.wizard"
-			string="Monthly Lunch Report" report_type="qweb-html"
+			string="Monthly Lunch Report" report_type="qweb-pdf"
 			name="itbampa.lunch_monthly_report" file="itbampa.lunch_monthly_report"
-			attachment_use="False" attachment="'LunchMonthlyReport.pdf'"/>
+			attachment_use="False" attachment="'LunchMonthlyReport.pdf'" />
 		<!-- Report Wizard -->
 		<record model="ir.ui.view" id="lunch_wizard_monthly_form_view">
 			<field name="name">Monthly Lunch Report Wizard</field>
@@ -15,27 +15,38 @@
 					<group>
 						<p>
 							This Wizards lets you select the required School Calendar that
-							will be used to calculate monthly lunch attendance. You can get a
-							one-month report or a full session report, grouped by months.
+							will be used to calculate monthly lunch attendance grouped by months.
 						</p>
 					</group>
-					<group col="4">
+					<group>
 						<field name="school_calendar_id" string="Session selected"></field>
+						<field name="month_id" string="Month" options='{"no_open": true, "no_create": true, "no_edit": true}'></field>
+						<field name="lective_days"></field>
+					</group>
+					<group string="Monthly Lunch Attendance">
+						<field name="line_ids" nolabel="1">
+							<tree create="0" edit="0" delete="0">
+								<field name="partner"></field>
+								<field name="total"></field>
+							</tree>						
+						</field>
 					</group>
 
 					<footer>
-						<button name="%(lunch_monthly_report_action)d" type="action"
-							string="Print Monthly Lunch Attendance" class="oe_highlight"></button>
-						<button name="print_monthly_report" type="object" string="Print Kaka" class="oe_highlight"></button>
+						<button name="print_monthly_report" type="object" class="oe_highlight"
+							string="Print Monthly Lunch Attendance" icon="STOCK_PRINT">
+						</button>
 						<button special="cancel" string="Cancel"></button>
 					</footer>
 				</form>
 			</field>
 		</record>
 		<record id="lunch_monthly_report_wizard" model="ir.actions.act_window">
-			<field name="name">itbampa.lunch_monthly_report</field>
+			<field name="name">Lunch Monthly Report Wizard</field>
 			<field name="res_model">itbampa.lunch.report.wizard</field>
+			<!-- 
 			<field name="target">new</field>
+			 -->
 		</record>
 		<record model="ir.actions.act_window.view" id="lunch_monthly_report_wizard_form">
 			<field name="view_mode">form</field>
@@ -97,8 +108,9 @@
 						<group string="Eaters">
 							<field attrs="{'readonly': [('state', '!=', 'open')]}"
 								name="eater_ids" nolabel="1">
-								<tree editable="bottom" string="Eaters">
+								<tree editable="bottom" string="Eaters" default_order="partner_current_course, partner_id">
 									<field name="partner_id" />
+									<field name="partner_current_course"></field>
 									<field
 										domain="[('categ_id', 'child_of', %(itbampa.product_category_lunch)d)]"
 										name="lunch_product_id" />
