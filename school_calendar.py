@@ -64,9 +64,9 @@ class SchoolCalendar(models.Model):
         """
         Count lective days between two dates using a Calendar.
 
-        @param dstart: Start date for counting.
-        @param dend: End date for counting.
-        @return Integer. Lective days between the two dates.
+        :param dstart: Start date for counting.
+        :param dend: End date for counting.
+        :return Integer. Lective days between the two dates.
 
         The most usual purpose of this method is to count lective days, i.e. days with open lunch service.
         """

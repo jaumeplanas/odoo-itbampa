@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""AMPA Member"""
+
+
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 
@@ -22,8 +25,8 @@ COURSE_AGES = [
 
 
 class Partner(models.Model):
+    """Class Partner"""
 
-    """AMPA Member"""
     _inherit = "res.partner"
 
     @api.constrains('lunch_product_id', 'billing_partner_id')
