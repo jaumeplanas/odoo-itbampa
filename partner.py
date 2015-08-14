@@ -2,7 +2,7 @@
 """AMPA Member"""
 
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 from openerp.exceptions import ValidationError
 
 AMPA_PARTNER_TYPES = [

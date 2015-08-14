@@ -44,9 +44,7 @@
 		<record id="lunch_monthly_report_wizard" model="ir.actions.act_window">
 			<field name="name">Lunch Monthly Report Wizard</field>
 			<field name="res_model">itbampa.lunch.report.wizard</field>
-			<!-- 
 			<field name="target">new</field>
-			 -->
 		</record>
 		<record model="ir.actions.act_window.view" id="lunch_monthly_report_wizard_form">
 			<field name="view_mode">form</field>

@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -vrz --del /home/jaume/dev/odoo-itbampa/ awsampa:/home/ubuntu/odoo/modules/itbampa

@@ -33,7 +33,8 @@ class SchoolCalendar(models.Model):
     @api.constrains('date_start', 'date_end', 'name', 'holiday_ids')
     def _check_dates(self):
         lang = self._context['lang'] or 'en_US'
-        fmt = self.env['res.lang'].search([('code', '=', lang)], limit=1).date_format
+        fmtx = self.env['res.lang'].search([('code', '=', lang)], limit=1)
+        fmt  = fmtx or fmtx.date_format or '%Y-%m-%d'
         date_start = fields.Date.from_string(self.date_start)
         date_end = fields.Date.from_string(self.date_end)
         allowed_start = date(self.year, 7, 1)

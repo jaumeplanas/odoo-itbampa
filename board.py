@@ -31,10 +31,10 @@ class ItbampaBoardMembers(models.Model):
 
     _name = "itbampa.board.members"
 
-    partner = fields.Many2one("res.partner", "Board Member", ondelete="set null", domain=[
+    partner = fields.Many2one("res.partner", "Board Member", ondelete="cascade", domain=[
                                                         ("ampa_partner_type", "=", "tutor")], required=True)
     role = fields.Many2one(
-            "itbampa.board.roles", "Board Role", ondelete="set null", required=True)
+            "itbampa.board.roles", "Board Role", ondelete="cascade", required=True)
     board = fields.Many2one(
             "itbampa.boards", "Board", ondelete="cascade", required=True)
     mobile = fields.Char(
