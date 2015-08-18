@@ -23,7 +23,7 @@
 			<field name="model">res.partner</field>
 			<field name="priority">50</field>
 			<field name="arch" type="xml">
-				<search string="Partners">
+				<search string="Members">
 					<field name="name" string="Name" />
 					<field name="current_course" string="Current Course" />
 					<filter domain="[('ampa_partner_type','=','student')]" help="Students"
@@ -82,20 +82,12 @@
 							</field>
 						</group>
 					</page>
-					<page string="Lunch">
-						<group col="4">
-							<field name="is_lunch_subscribed" />
-							<field
-								attrs="{'invisible': [('ampa_partner_type', 'not in', ['student', 'tutor'])]}"
-								domain="[('categ_id', 'child_of', %(itbampa.product_category_lunch)d)]"
-								name="lunch_product_id" />
-						</group>
-						<group string="Lunchs">
-							<field name="lunch_ids" nolabel="1">
-								<tree create="0">
-									<field name="lunch_id" />
-									<field name="lunch_product_id" />
-									<field name="comment" />
+					<page string="Activities">
+						<group string="Activities">
+							<field name="activity_partner_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name="activity_type_id" />
+									<field name="product_id" />
 								</tree>
 							</field>
 						</group>
@@ -108,7 +100,7 @@
 			<field name="name">Members</field>
 			<field name="res_model">res.partner</field>
 			<field name="search_view_id" ref="itbampa_members_filter" />
-			<field name="context">{"search_default_student": 1}</field>
+			<field name="context">{"search_default_student": 1, "default_ampa_partner_type": "student"}</field>
 		</record>
 		<record id="action_membership_members_view_tree" model="ir.actions.act_window.view">
 			<field eval="2" name="sequence" />

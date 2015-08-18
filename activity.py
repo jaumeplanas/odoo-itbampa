@@ -5,70 +5,86 @@ from openerp import models, fields, api
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
+class ActivityType(models.Model):
+    _name = 'itbampa.activity.type'
+    
+    name = fields.Char("Activity Type", required=True)
+    
+class ActivityEventPartner(models.Model):
+    _name = 'itbampa.activity.event.partner'
 
-class LunchEventEaters(models.Model):
-    _name = 'itbampa.lunch.event.partner'
-
-    lunch_id = fields.Many2one('itbampa.lunch.event', string="Lunch Event", required=True, ondelete='cascade')
+    activity_id = fields.Many2one('itbampa.activity.event', string="Activity Event", required=True, ondelete='cascade')
     partner_id = fields.Many2one(
-            'res.partner', string="Lunch Eater", domain="[('ampa_partner_type', 'in', ['tutor', 'student'])]", required=True, ondelete='cascade')
+            'res.partner', string="Member", domain="[('ampa_partner_type', 'in', ['tutor', 'student'])]", required=True, ondelete='cascade')
     partner_current_course = fields.Selection("Current Course", related="partner_id.current_course")
     comment = fields.Char("Comment")
-    lunch_product_id = fields.Many2one('product.product', "Lunch Product", required=True, ondelete='cascade')
+    activity_product_id = fields.Many2one('product.product', string="Product", required=True, ondelete='cascade')
+    # For graph view
+    date_start = fields.Date(string="Date Start", related='activity_id.date_start', store=True)
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', related='activity_id.school_calendar_id', store="True")
 
+class ActivityEvent(models.Model):
 
+    '''Activity Event.'''
 
-class LunchEvent(models.Model):
-
-    '''Lunch Event.'''
-
-    _name = 'itbampa.lunch.event'
+    _name = 'itbampa.activity.event'
     _order = 'date_start desc'
 
     @api.multi
-    @api.depends('eater_ids')
-    def _compute_total_eaters(self):
+    @api.depends('partner_ids')
+    def _compute_total_partners(self):
         for record in self:
-            record.total_eaters = len(record.eater_ids) # @
-
-    @api.multi
-    @api.depends('date_start')
-    def _on_change_name(self):
-        lang = self._context['lang'] or 'en_US'
-        fmt = self.env['res.lang'].search([('code', '=', lang)], limit=1).date_format
-        for record in self:
-            record.name = fields.Date().from_string(record.date_start).strftime(fmt)
-
-    def _get_lunch_registered(self):
-        pids = []
-        for x in self.env['res.partner'].search([('is_lunch_subscribed', '=', True)]):
-            pids.append([0, 0, {'partner_id': x.id, 'lunch_product_id': x.lunch_product_id}])
-        return pids
+            record.total_partners = len(record.partner_ids) # @
 
     @api.one
+    @api.depends('date_start')
+    def _get_name_and_school_calendar(self):
+        lang = self._context.get('lang', 'en_US')
+        fmt = self.env['res.lang'].search([('code', '=', lang)], limit=1).date_format
+        odate = fields.Date().from_string(self.date_start)
+        self.name = odate.strftime(fmt)
+        ocalendar = self.env['itbampa.school.calendar'].get_school_calendar_from_date(odate)
+        self.school_calendar_id = ocalendar
+            
+
+    @api.onchange('activity_type_id')
+    def _on_change_activity_type(self):
+        self.update_with_registered()
+    
+    @api.multi
     def update_with_registered(self):
         pids = []
-        registered_set = set([x.id for x in self.env['res.partner'].search([('is_lunch_subscribed', '=', True)])])
-        current_set = set([y.partner_id.id for y in self.eater_ids])
-        intersect_list = list(registered_set - current_set)
-        intersect_objs = self.env['res.partner'].browse(intersect_list)
-        for z in intersect_objs:
-            pids.append([0, 0, {'partner_id': z.id, 'lunch_product_id': z.lunch_product_id.id}])
-        self.write({'eater_ids': pids})
-
-    name = fields.Char("Name", compute='_on_change_name', store=True)
+        # Get partner IDs registered
+        registered_set = set([x.partner_id.id for x in self.env['itbampa.activity.partner.line'].search([('activity_type_id', '=', self.activity_type_id.id)])])
+        # Get partners IDs already defined
+        current_set = set([y.partner_id.id for y in self.partner_ids])
+        # Get missing partner IDs
+        intersect_list = [x for x in list(registered_set - current_set)]
+        # If missing
+        if len(intersect_list) > 0:
+            intersect_objs = self.env['itbampa.activity.partner.line'].search([
+                ('activity_type_id', '=', self.activity_type_id.id),
+                ('partner_id', 'in', intersect_list)
+                ])
+            for z in intersect_objs:
+                pids.append([0, 0, {'partner_id': z.partner_id.id, 'activity_product_id': z.product_id.id}])
+            self.partner_ids = pids
+            
+    name = fields.Char("Name", compute='_get_name_and_school_calendar', store=True)
+    activity_type_id = fields.Many2one('itbampa.activity.type', string="Activity Type", required=True)
     date_start = fields.Date(
             "Start Date", required=True, default=fields.Date.today())
     date_stop = fields.Date("End Date", default=fields.Date.today())
     all_day = fields.Boolean("All Day", default=True)
     user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
-    eater_ids = fields.One2many(
-            'itbampa.lunch.event.partner', 'lunch_id', default=_get_lunch_registered)
+    partner_ids = fields.One2many(
+            'itbampa.activity.event.partner', 'activity_id', string="Members")
     state = fields.Selection(
             [('open', 'Open'), ('closed', 'Closed'), ('billed', 'Billed')], string="State", default='open')
-    total_eaters = fields.Integer(
-            "Total Registered", compute='_compute_total_eaters', store=True)
-
+    total_partners = fields.Integer(
+            "Total Registered", compute='_compute_total_partners', store=True)
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', string="School Calendar", compute='_get_name_and_school_calendar', store=True)
+    
     @api.one
     def action_closed(self):
         self.state = 'closed'
@@ -85,8 +101,8 @@ class LunchEvent(models.Model):
     # self.signal_workflow('bill_lunch_event')
     
 class LunchReportWizard(models.TransientModel):
-    """Wizard to select School Calendar for Monthly Lunch Attendants"""
-    _name = 'itbampa.lunch.report.wizard'
+    """Wizard to select School Calendar for Monthly Activity Attendance"""
+    _name = 'itbampa.activity.report.wizard'
     
     def _get_default_school_calendar(self):
         return self.env['itbampa.school.calendar'].search([], limit=1)
@@ -96,13 +112,13 @@ class LunchReportWizard(models.TransientModel):
         dtstart = self.school_calendar_id.date_start
         dtend = self.school_calendar_id.date_end
         school_id = self.school_calendar_id.id
-        month_obj = self.env['itbampa.lunch.report.wizard.month']
+        month_obj = self.env['itbampa.activity.report.wizard.month']
         for x in month_obj.search([]):
             x.unlink()
         if (dtstart > '1971-01-01') and (dtend > '1971-01-01'):
             self._cr.execute("""
                 SELECT EXTRACT(YEAR from date_start) AS year, EXTRACT(MONTH from date_start) AS month
-                FROM itbampa_lunch_event
+                FROM itbampa_activity_event
                 WHERE date_start BETWEEN %s AND %s
                 GROUP BY EXTRACT(YEAR from date_start), EXTRACT(MONTH from date_start)
             """, (dtstart, dtend))
@@ -127,18 +143,20 @@ class LunchReportWizard(models.TransientModel):
             for line in self.line_ids:
                 line.unlink()
             self._cr.execute("""
-                SELECT p.name AS partner, count(*) AS total 
-                FROM itbampa_lunch_event_partner e
-                JOIN itbampa_lunch_event l ON l.id = e.lunch_id
+                SELECT p.name AS partner, t.name_template AS product, count(*) AS total 
+                FROM itbampa_activity_event_partner e
+                JOIN itbampa_activity_event l ON l.id = e.activity_id
                 JOIN res_partner p ON p.id = e.partner_id
+                JOIN product_product t ON t.id = e.activity_product_id
                 WHERE l.date_start BETWEEN %s AND %s
-                GROUP BY p.name
+                GROUP BY p.name, t.name_template
                 """, (dtstart, dtend))
-            line_obj = zz = self.env['itbampa.lunch.report.wizard.line']
+            line_obj = zz = self.env['itbampa.activity.report.wizard.line']
         
             for x in self._cr.dictfetchall():
                 z = line_obj.create({
                     'partner': x['partner'],
+                    'product': x['product'],
                     'total': int(x['total']),
                     })
                 zz += z
@@ -147,8 +165,8 @@ class LunchReportWizard(models.TransientModel):
             self.lective_days = self.school_calendar_id.count_lective_days(dstart=dtstart_o, dend=dtend_o)
             
     school_calendar_id = fields.Many2one('itbampa.school.calendar', string="School Calendar", required=True, default=_get_default_school_calendar)
-    month_id = fields.Many2one('itbampa.lunch.report.wizard.month', required=True, ondelete="cascade")
-    line_ids = fields.One2many('itbampa.lunch.report.wizard.line', 'wizard_id', compute='_get_line_ids')
+    month_id = fields.Many2one('itbampa.activity.report.wizard.month', required=True, ondelete="cascade", string="Mes")
+    line_ids = fields.One2many('itbampa.activity.report.wizard.line', 'wizard_id', compute='_get_line_ids')
     lective_days = fields.Integer("Total Lective Days", compute='_get_line_ids')
     
     
@@ -158,20 +176,22 @@ class LunchReportWizard(models.TransientModel):
             'context': self._context,
             'data': {},
             'type': 'ir.actions.report.xml',
-            'report_name': 'itbampa.lunch_monthly_report',
+            'report_name': 'itbampa.activity_monthly_report',
             'report_type': 'qweb-html',
-            'report_file': 'itbampa.lunch_monthly_report',
+            'report_file': 'itbampa.activity_monthly_report',
             }
             
 class LunchReportWizardLines(models.TransientModel):
-    _name = 'itbampa.lunch.report.wizard.line'
+    _name = 'itbampa.activity.report.wizard.line'
+    _order = 'partner, product'
     
-    wizard_id = fields.Many2one('itbampa.lunch.report.wizard', ondelete="cascade")
-    partner = fields.Char("Partner")
+    wizard_id = fields.Many2one('itbampa.activity.report.wizard', ondelete="cascade")
+    partner = fields.Char("Member")
+    product = fields.Char("Product")
     total = fields.Integer("Total")
 
 class LunchReportWizardMonths(models.TransientModel):
-    _name = 'itbampa.lunch.report.wizard.month'
+    _name = 'itbampa.activity.report.wizard.month'
     _order = 'year, month'
     
     @api.one
@@ -185,12 +205,12 @@ class LunchReportWizardMonths(models.TransientModel):
     month = fields.Integer()   
     
 class LunchCustomReport(models.AbstractModel):
-    _name = 'report.itbampa.lunch_monthly_report'
+    _name = 'report.itbampa.activity_monthly_report'
     
     @api.multi
     def render_html(self, data=None):
         report_obj = self.env['report']
-        report = report_obj._get_report_from_name('itbampa.lunch_monthly_report')
+        report = report_obj._get_report_from_name('itbampa.activity_monthly_report')
         active_id = self._context.get('active_id')
         wizard_obj = self.env[report.model].browse(active_id)
         docargs = {
@@ -198,4 +218,4 @@ class LunchCustomReport(models.AbstractModel):
             'doc_model': report.model,
             'docs': wizard_obj,
         }
-        return report_obj.render('itbampa.lunch_monthly_report', docargs)
+        return report_obj.render('itbampa.activity_monthly_report', docargs)

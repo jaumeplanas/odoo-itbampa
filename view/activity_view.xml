@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Report Action -->
+		<report id="lunch_monthly_report_action" model="itbampa.activity.report.wizard"
+			string="Monthly Activity Report" report_type="qweb-pdf"
+			name="itbampa.activity_monthly_report" file="itbampa.activity_monthly_report"
+			attachment_use="False" attachment="'ActivityMonthlyReport.pdf'" />
+		<!-- Report Wizard -->
+		<record model="ir.ui.view" id="lunch_wizard_monthly_form_view">
+			<field name="name">Monthly Activity Report Wizard</field>
+			<field name="model">itbampa.activity.report.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Monthly Activity Report Wizard">
+					<group>
+						<p>
+							This Wizards lets you select the required School Calendar that
+							will be used to calculate monthly activity attendance grouped by months.
+						</p>
+					</group>
+					<group>
+						<field name="school_calendar_id" string="Session selected"></field>
+						<field name="month_id" string="Month" options='{"no_open": true, "no_create": true, "no_edit": true}'></field>
+						<field name="lective_days"></field>
+					</group>
+					<group string="Monthly Activity Attendance">
+						<field name="line_ids" nolabel="1">
+							<tree create="0" edit="0" delete="0">
+								<field name="partner"></field>
+								<field name="product"></field>
+								<field name="total"></field>
+							</tree>						
+						</field>
+					</group>
+
+					<footer>
+						<button name="print_monthly_report" type="object" class="oe_highlight"
+							string="Print Monthly Activity Attendance" icon="STOCK_PRINT">
+						</button>
+						<button special="cancel" string="Cancel"></button>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="lunch_monthly_report_wizard" model="ir.actions.act_window">
+			<field name="name">Activity Monthly Report Wizard</field>
+			<field name="res_model">itbampa.activity.report.wizard</field>
+			<field name="target">new</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="lunch_monthly_report_wizard_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="lunch_wizard_monthly_form_view" />
+			<field name="act_window_id" ref="lunch_monthly_report_wizard" />
+		</record>
+		<!-- Activity Daily Report -->
+		<report attachment="'LlistatActivitat'+object.date_start+'.pdf'"
+			attachment_use="False" id="report_activity_event_pdf" model="itbampa.activity.event"
+			name="itbampa.report_activity_event" report_type="qweb-pdf" string="Print Activity Event" />
+		<!-- Activity Tree View -->
+		<record id="itbampa_activity_tree" model="ir.ui.view">
+			<field name="name">Activities</field>
+			<field name="model">itbampa.activity.event</field>
+			<field name="arch" type="xml">
+				<tree string="Activities">
+					<field name="date_start" />
+					<field name="state" />
+					<field name="total_partners" />
+					<field invisible="1" name="activity_type_id" />
+				</tree>
+			</field>
+		</record>
+		<!-- Activity Form View -->
+		<record id="itbampa_activity_form" model="ir.ui.view">
+			<field name="name">Activities</field>
+			<field name="model">itbampa.activity.event</field>
+			<field name="arch" type="xml">
+				<form string="Activities">
+					<header>
+						<button class="oe_highlight" groups="itbampa.group_itbampa_admin"
+							name="close_activity_event" states="open" string="Close Activity Event"
+							type="workflow" />
+						<button class="oe_highlight" groups="itbampa.group_itbampa_admin"
+							name="open_activity_event" states="closed" string="Open Activity Event"
+							type="workflow" />
+						<field name="state" widget="statusbar" />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label for="name" string="Fitxa de l'activitat del dia" />
+								<field class="oe_inline" name="name" readonly="1" />
+							</h1>
+						</div>
+						<div class="oe_right" name="buttons">
+							<button name="%(report_activity_event_pdf)d" string="Attendance"
+								type="action" class="fa fa-check-square-o" />
+							<button name="update_with_registered" string="Update Members"
+								type="object" class="fa fa-users"></button>
+						</div>
+						<separator string="General Info"></separator>
+						<group col="4">
+							<field name="activity_type_id" />
+							<field attrs="{'readonly': [('state', '!=', 'open')]}"
+								name="date_start" string="Date" />
+						</group>
+						<group col="4">
+							<field name="total_partners" />
+							<field name="school_calendar_id"></field>
+						</group>
+						<group string="Members">
+							<field attrs="{'readonly': [('state', '!=', 'open')]}"
+								name="partner_ids" nolabel="1">
+								<tree editable="bottom" default_order="partner_current_course, partner_id">
+									<field name="partner_id" />
+									<field name="partner_current_course"></field>
+									<field domain="[('categ_id', 'child_of', %(product_category_activity)d)]" 
+										name="activity_product_id" />
+									<field name="comment" />
+								</tree>
+							</field>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- Activity Calendar View -->
+		<record id="itbampa_activity_calendar" model="ir.ui.view">
+			<field name="name">Events</field>
+			<field name="model">itbampa.activity.event</field>
+			<field name="arch" type="xml">
+				<calendar all_day="all_day" color="activity_type_id" date_start="date_start"
+					display="[activity_type_id]" quick_add="0" string="Activities">
+					<field name="activity_type_id" />
+				</calendar>
+			</field>
+		</record>
+		<!-- Activity actions -->
+		<record id="action_itbampa_activities" model="ir.actions.act_window">
+			<field name="name">Activities</field>
+			<field name="res_model">itbampa.activity.event</field>
+			<field name="view_mode">calendar,tree,form</field>
+		</record>
+		<record id="action_itbampa_activities_view_tree" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="itbampa_activity_tree" />
+			<field name="act_window_id" ref="action_itbampa_activities" />
+		</record>
+		<record id="action_itbampa_activities_view_form" model="ir.actions.act_window.view">
+			<field eval="3" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="itbampa_activity_form" />
+			<field name="act_window_id" ref="action_itbampa_activities" />
+		</record>
+		<record id="action_itbampa_activities_view_calendar" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">calendar</field>
+			<field name="view_id" ref="itbampa_activity_calendar" />
+			<field name="act_window_id" ref="action_itbampa_activities" />
+		</record>
+		<!-- Activity Menu -->
+		<menuitem action="action_itbampa_activities" id="menu_itbampa_mngt_activity"
+			name="Activities" parent="menu_itbampa_mgnt" sequence="50" />
+		<menuitem action="lunch_monthly_report_wizard" id="menu_itbampa_report_monthly"
+			name="Activity Monthly Report" parent="menu_itbampa_report" sequence="10" />
+			
+		<!-- Activity Partner Graph Views -->
+		<record id="itbampa_activity_partner_graph_1" model="ir.ui.view">
+			<field name="name">Activity Graph by Partner, Activity, Date</field>
+			<field name="model">itbampa.activity.event.partner</field>
+			<field name="arch" type="xml">
+				<graph type="pivot">
+					<field name="partner_id" type="row"></field>
+					<field name="activity_product_id" type="row"></field>
+					<field name="school_calendar_id" type="row"></field>
+					<field name="date_start" type="row" interval="month"></field>
+				</graph>
+			</field>
+		</record>
+		<record id="itbampa_activity_partner_graph_2" model="ir.ui.view">
+			<field name="name">Activity Graph by Activity, Partner, Date</field>
+			<field name="model">itbampa.activity.event.partner</field>
+			<field name="arch" type="xml">
+				<graph type="pivot">
+					<field name="activity_product_id" type="row"></field>
+					<field name="partner_id" type="row"></field>
+					<field name="school_calendar_id" type="row"></field>
+					<field name="date_start" type="row" interval="month"></field>
+				</graph>
+			</field>
+		</record>
+		<!-- Activity Partner actions -->
+		<record id="action_activity_partner_view_1" model="ir.actions.act_window">
+			<field name="name">Activities by Partner, Activity, Date</field>
+			<field name="res_model">itbampa.activity.event.partner</field>
+			<field name="view_mode">graph</field>
+		</record>
+		<record id="action_activity_partner_view_2" model="ir.actions.act_window">
+			<field name="name">Activities by Activity, Partner, Date</field>
+			<field name="res_model">itbampa.activity.event.partner</field>
+			<field name="view_mode">graph</field>
+		</record>
+		<record id="action_activity_partner_view_graph_1" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="itbampa_activity_partner_graph_1" />
+			<field name="act_window_id" ref="action_activity_partner_view_1" />
+		</record>
+		<record id="action_activity_partner_view_graph_2" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="itbampa_activity_partner_graph_2" />
+			<field name="act_window_id" ref="action_activity_partner_view_2" />
+		</record>
+		<!-- Activity Partner Menu -->
+		<menuitem id="menu_itbampa_activity_partner_graphs" name="Activity Summaries" parent="menu_itbampa_report" sequence="20"></menuitem>
+		<menuitem action="action_activity_partner_view_1" id="menu_itbampa_activity_partner_graph_1"
+			name="By Partner, Activity, Date" parent="menu_itbampa_activity_partner_graphs" sequence="10" />
+		<menuitem action="action_activity_partner_view_2" id="menu_itbampa_activity_partner_graph_2"
+			name="By Activity, Partner, Date" parent="menu_itbampa_activity_partner_graphs" sequence="20" />
+	</data>
+</openerp>

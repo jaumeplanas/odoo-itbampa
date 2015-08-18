@@ -26,7 +26,7 @@
     'data': [
         'security/itbampa_security.xml',
         'security/ir.model.access.csv',
-        'view/lunch_data.xml',
+        'view/activity_data.xml',
         'view/templates.xml',
         'view/itbampa_menu.xml',
         'view/partner_view.xml',
@@ -34,8 +34,8 @@
         'view/board_view.xml',
         'workflow/board_wkf.xml',
         'view/school_calendar_view.xml',
-        'view/lunch_view.xml',
-        'workflow/lunch_event_wkf.xml',
+        'view/activity_view.xml',
+        'workflow/activity_event_wkf.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

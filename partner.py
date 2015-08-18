@@ -32,27 +32,32 @@ class Partner(models.Model):
     @api.constrains('lunch_product_id', 'billing_partner_id')
     def _check_billing(self):
         for record in self:
-            if record.lunch_product_id.id is not False:
-                if record.billing_partner_id.id is False:
+            for activity in record.activity_partner_ids:
+                if activity.partner_id.billing_partner_id is False:
                     raise ValidationError(
-                            "A Billing Partner is required when selecting a Lunch Product")
-                if len(record.billing_partner_id.bank_ids) < 1:
+                            "A Billing Member is required when selecting an Activity")
+                if len(activity.partner_id.billing_partner_id.bank_ids) < 1:
                     raise ValidationError(
-                            "At least one Bank ID is required for Billing Partner")
+                            "At least one Bank ID is required for Billing Member")
 
     ampa_partner_type = fields.Selection(
-            AMPA_PARTNER_TYPES, "AMPA Partner Type", default='student')
+            AMPA_PARTNER_TYPES, "AMPA Partner Type")
     partner_child_ids = fields.Many2many(
-            'res.partner', 'res_partner_rel', 'tutor_id', 'child_id')
+            'res.partner', 'res_partner_rel', 'tutor_id', 'child_id', string="Partner Childs")
     partner_tutor_ids = fields.Many2many(
-            'res.partner', 'res_partner_rel', 'child_id', 'tutor_id')
+            'res.partner', 'res_partner_rel', 'child_id', 'tutor_id', string="Partner Tutors")
     ampa_birthdate = fields.Date("Birthday")
     course_lag = fields.Integer("Lagging courses", default=0)
     billing_partner_id = fields.Many2one(
-            "res.partner", "Billing Partner", ondelete="set null")
+            "res.partner", "Billing Member", ondelete="set null")
     current_course = fields.Selection(
             COURSE_AGES, "Current Course", readonly=True, default='99')
-    is_lunch_subscribed = fields.Boolean("Is subscribed to lunchs?")
-    lunch_product_id = fields.Many2one(
-            'product.product', "Lunch Product", ondelete='set null')
-    lunch_ids = fields.One2many('itbampa.lunch.event.partner', 'partner_id')
+    activity_partner_ids = fields.One2many('itbampa.activity.partner.line', 'partner_id', string="Activity Members")
+
+class ActivityPartnerLine(models.Model):
+    _name = 'itbampa.activity.partner.line'
+    
+    activity_type_id = fields.Many2one('itbampa.activity.type', string="Activity Type")
+    partner_id       = fields.Many2one('res.partner', string="Member", required=True)
+    product_id       = fields.Many2one('product.product', string="Product", required=True)
+    

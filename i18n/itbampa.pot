@@ -1,0 +1,868 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* itbampa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150706\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-11 05:26+0000\n"
+"PO-Revision-Date: 2015-08-11 05:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "1r Primària"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "2n Primària"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "3r Primària"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "4t Primària"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "5è Primària"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "6è Primària"
+msgstr ""
+
+#. module: itbampa
+#: view:res.partner:itbampa.view_partner_form
+msgid "AMPA"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,ampa_partner_type:0
+msgid "AMPA Partner Type"
+msgstr ""
+
+#. module: itbampa
+#: model:res.groups,name:itbampa.group_itbampa_admin
+msgid "AMPA admins group"
+msgstr ""
+
+#. module: itbampa
+#: model:res.groups,name:itbampa.group_itbampa_user
+msgid "AMPA users group"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_itbampa_activities
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_mngt_activity
+#: view:itbampa.activity.event:itbampa.itbampa_activity_calendar
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+#: view:itbampa.activity.event:itbampa.itbampa_activity_tree
+#: view:res.partner:itbampa.view_partner_form
+msgid "Activities"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_activity_partner_view_2
+msgid "Activities by Activity, Partner, Date"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_activity_partner_view_1
+msgid "Activities by Partner, Activity, Date"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.report_activity_event
+msgid "Activity Attendance Report"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event.partner,activity_id:0
+msgid "Activity Event"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,activity_partner_ids:0
+msgid "Activity Members"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_report_monthly
+msgid "Activity Monthly Report"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.lunch_monthly_report_wizard
+msgid "Activity Monthly Report Wizard"
+msgstr ""
+
+#. module: itbampa
+#: model:product.category,name:itbampa.product_category_activity
+msgid "Activity Products Category"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_activity_partner_graphs
+msgid "Activity Summaries"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,activity_type_id:0
+#: field:itbampa.activity.partner.line,activity_type_id:0
+#: field:itbampa.activity.type,name:0
+msgid "Activity Type"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,all_day:0
+msgid "All Day"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+msgid "Attendance"
+msgstr ""
+
+#. module: itbampa
+#: selection:itbampa.activity.event,state:0
+msgid "Billed"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,billing_partner_id:0
+msgid "Billing Member"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,ampa_birthdate:0
+msgid "Birthday"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.board.members,board:0
+msgid "Board"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.board.members,partner:0
+msgid "Board Member"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.board.members:itbampa.itbampa_board_members_form
+#: view:itbampa.board.members:itbampa.itbampa_board_members_tree
+msgid "Board Members"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,name:0
+msgid "Board Name"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.board.members,role:0
+msgid "Board Role"
+msgstr ""
+
+#. module: itbampa
+#: help:itbampa.board.roles,name:0
+msgid "Board Role Name"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_itbampa_board_roles
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_conf_board_roles
+#: view:itbampa.board.roles:itbampa.itbampa_board_roles_form
+#: view:itbampa.board.roles:itbampa.itbampa_board_roles_tree
+msgid "Board Roles"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_itbampa_boards
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_mgnt_boards
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+#: view:itbampa.boards:itbampa.itbampa_boards_tree
+msgid "Boards"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_activity_partner_graph_2
+msgid "By Activity, Partner, Date"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_activity_partner_graph_1
+msgid "By Partner, Activity, Date"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+#: view:school.course.compute.wizard:itbampa.compute_course_wizard_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: itbampa
+#: view:res.partner:itbampa.view_partner_form
+msgid "Children"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+msgid "Close Activity Event"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+msgid "Close Board"
+msgstr ""
+
+#. module: itbampa
+#: selection:itbampa.activity.event,state:0
+#: selection:itbampa.boards,state:0
+msgid "Closed"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event.partner,comment:0
+#: view:website:itbampa.report_activity_event
+msgid "Comment"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_itbampa_compute_course_wizard
+#: view:school.course.compute.wizard:itbampa.compute_course_wizard_form_view
+msgid "Compute Course Wizard"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.school.calendar:itbampa.itbampa_school_calendar_form
+msgid "Compute Student's Current Course"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_conf
+msgid "Configuration"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.report_activity_event
+msgid "Count"
+msgstr ""
+
+#. module: itbampa
+#: view:school.course.compute.wizard:itbampa.compute_course_wizard_form_view
+msgid "Course updating has been successfull."
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,create_uid:0
+#: field:itbampa.activity.event.partner,create_uid:0
+#: field:itbampa.activity.partner.line,create_uid:0
+#: field:itbampa.activity.report.wizard,create_uid:0
+#: field:itbampa.activity.report.wizard.line,create_uid:0
+#: field:itbampa.activity.report.wizard.month,create_uid:0
+#: field:itbampa.activity.type,create_uid:0
+#: field:itbampa.board.members,create_uid:0
+#: field:itbampa.board.roles,create_uid:0
+#: field:itbampa.boards,create_uid:0
+#: field:itbampa.school.calendar,create_uid:0
+#: field:itbampa.school.calendar.holiday,create_uid:0
+#: field:school.course.compute.wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,create_date:0
+#: field:itbampa.activity.event.partner,create_date:0
+#: field:itbampa.activity.partner.line,create_date:0
+#: field:itbampa.activity.report.wizard,create_date:0
+#: field:itbampa.activity.report.wizard.line,create_date:0
+#: field:itbampa.activity.report.wizard.month,create_date:0
+#: field:itbampa.activity.type,create_date:0
+#: field:itbampa.board.members,create_date:0
+#: field:itbampa.board.roles,create_date:0
+#: field:itbampa.boards,create_date:0
+#: field:itbampa.school.calendar,create_date:0
+#: field:itbampa.school.calendar.holiday,create_date:0
+#: field:school.course.compute.wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: itbampa
+#: view:res.partner:itbampa.itbampa_members_filter
+#: field:res.partner,current_course:0
+msgid "Current Course"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+#: view:website:itbampa.report_activity_event
+msgid "Date"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.school.calendar.holiday,date_end:0
+msgid "Date End"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event.partner,date_start:0
+#: field:itbampa.school.calendar.holiday,date_start:0
+msgid "Date Start"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/board.py:78
+#, python-format
+msgid "Date end is before than date start"
+msgstr ""
+
+#. module: itbampa
+#: help:itbampa.boards,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/school_calendar.py:106
+#, python-format
+msgid "Date parameter is required!"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/board.py:71
+#, python-format
+msgid "Date start is before than date end for: %s (%s)"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+msgid "Dates"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/board.py:43
+#: view:website:itbampa.informe_board
+#, python-format
+msgid "Email"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.model,name:itbampa.model_itbampa_boards
+msgid "Email Thread"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,date_stop:0
+#: field:itbampa.boards,date_end:0
+#: field:itbampa.school.calendar,date_end:0
+msgid "End Date"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/school_calendar.py:49
+#, python-format
+msgid "End date (%s) must be after start date (%s)"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/school_calendar.py:47
+#, python-format
+msgid "End date (%s) must be before allowed end date (%s)"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+msgid "Fitxa de l'activitat del dia"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,message_follower_ids:0
+msgid "Followers"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.informe_board
+msgid "From"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+#: view:itbampa.school.calendar:itbampa.itbampa_school_calendar_form
+msgid "General Info"
+msgstr ""
+
+#. module: itbampa
+#: help:itbampa.boards,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.school.calendar:itbampa.itbampa_school_calendar_form
+#: field:itbampa.school.calendar,holiday_ids:0
+msgid "Holiday Ranges"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,id:0
+#: field:itbampa.activity.event.partner,id:0
+#: field:itbampa.activity.partner.line,id:0
+#: field:itbampa.activity.report.wizard,id:0
+#: field:itbampa.activity.report.wizard.line,id:0
+#: field:itbampa.activity.report.wizard.month,id:0
+#: field:itbampa.activity.type,id:0
+#: field:itbampa.board.members,id:0
+#: field:itbampa.board.roles,id:0
+#: field:itbampa.boards,id:0
+#: field:itbampa.school.calendar,id:0
+#: field:itbampa.school.calendar.holiday,id:0
+#: field:report.itbampa.activity_monthly_report,id:0
+#: field:school.course.compute.wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: itbampa
+#: help:itbampa.boards,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,message_is_follower:0
+msgid "Is a Follower"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.report_activity_event
+msgid "Is missing?"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,course_lag:0
+msgid "Lagging courses"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,message_last_post:0
+msgid "Last Message Date"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,write_uid:0
+#: field:itbampa.activity.event.partner,write_uid:0
+#: field:itbampa.activity.partner.line,write_uid:0
+#: field:itbampa.activity.report.wizard,write_uid:0
+#: field:itbampa.activity.report.wizard.line,write_uid:0
+#: field:itbampa.activity.report.wizard.month,write_uid:0
+#: field:itbampa.activity.type,write_uid:0
+#: field:itbampa.board.members,write_uid:0
+#: field:itbampa.board.roles,write_uid:0
+#: field:itbampa.boards,write_uid:0
+#: field:itbampa.school.calendar,write_uid:0
+#: field:itbampa.school.calendar.holiday,write_uid:0
+#: field:school.course.compute.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,write_date:0
+#: field:itbampa.activity.event.partner,write_date:0
+#: field:itbampa.activity.partner.line,write_date:0
+#: field:itbampa.activity.report.wizard,write_date:0
+#: field:itbampa.activity.report.wizard.line,write_date:0
+#: field:itbampa.activity.report.wizard.month,write_date:0
+#: field:itbampa.activity.type,write_date:0
+#: field:itbampa.board.members,write_date:0
+#: field:itbampa.board.roles,write_date:0
+#: field:itbampa.boards,write_date:0
+#: field:itbampa.school.calendar,write_date:0
+#: field:itbampa.school.calendar.holiday,write_date:0
+#: field:school.course.compute.wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.activity_monthly_report
+msgid "Lective Days"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_mgnt
+msgid "Management"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event.partner,partner_id:0
+#: field:itbampa.activity.partner.line,partner_id:0
+#: field:itbampa.activity.report.wizard.line,partner:0
+#: view:website:itbampa.activity_monthly_report
+#: view:website:itbampa.informe_board
+msgid "Member"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_itbampa_partners
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_mngt_members
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+#: field:itbampa.boards,members:0
+#: view:res.partner:itbampa.itbampa_members_filter
+#: view:res.partner:itbampa.itbampa_members_tree
+#: view:res.partner:itbampa.view_partner_form
+msgid "Members"
+msgstr ""
+
+#. module: itbampa
+#: model:product.template,name:itbampa.product_product_activity_1_product_template
+msgid "Menjador mensual"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,message_ids:0
+msgid "Messages"
+msgstr ""
+
+#. module: itbampa
+#: help:itbampa.boards,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/board.py:41
+#: view:website:itbampa.informe_board
+#, python-format
+msgid "Mobile"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+#: field:itbampa.activity.report.wizard.month,month:0
+#: field:itbampa.activity.report.wizard.month,name:0
+#: view:website:itbampa.activity_monthly_report
+msgid "Month"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.report.wizard,month_id:0
+msgid "Month id"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+msgid "Monthly Activity Attendance"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.report.xml,name:itbampa.lunch_monthly_report_action
+msgid "Monthly Activity Report"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+msgid "Monthly Activity Report Wizard"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_my
+msgid "My AMPA"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "N/D"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,name:0
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+#: field:itbampa.school.calendar.holiday,name:0
+#: view:res.partner:itbampa.itbampa_members_filter
+#: view:website:itbampa.report_activity_event
+msgid "Name"
+msgstr ""
+
+#. module: itbampa
+#: selection:itbampa.activity.event,state:0
+#: selection:itbampa.boards,state:0
+msgid "Open"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+msgid "Open Activity Event"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+msgid "Open Board"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "P3 Infantil"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "P4 Infantil"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,current_course:0
+msgid "P5 Infantil"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.model,name:itbampa.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,partner_child_ids:0
+msgid "Partner child ids"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,partner_ids:0
+msgid "Partner ids"
+msgstr ""
+
+#. module: itbampa
+#: field:res.partner,partner_tutor_ids:0
+msgid "Partner tutor ids"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.report.xml,name:itbampa.report_activity_event_pdf
+msgid "Print Activity Event"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.report.xml,name:itbampa.report_board_html
+#: model:ir.actions.report.xml,name:itbampa.report_board_pdf
+msgid "Print Board"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+msgid "Print HTML Report"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+msgid "Print Monthly Activity Attendance"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.boards:itbampa.itbampa_boards_form
+msgid "Print PDF Report"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event.partner,activity_product_id:0
+#: field:itbampa.activity.partner.line,product_id:0
+#: field:itbampa.activity.report.wizard.line,product:0
+#: view:website:itbampa.activity_monthly_report
+#: view:website:itbampa.report_activity_event
+msgid "Product"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.activity_monthly_report
+msgid "Report for"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_report
+msgid "Reports"
+msgstr ""
+
+#. module: itbampa
+#: view:website:itbampa.informe_board
+msgid "Role"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.board.roles,name:0
+msgid "Role Name"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.actions.act_window,name:itbampa.action_itbampa_school_calendar
+#: field:itbampa.activity.event,school_calendar_id:0
+#: field:itbampa.activity.event.partner,school_calendar_id:0
+#: field:itbampa.activity.report.wizard,school_calendar_id:0
+#: view:itbampa.school.calendar:itbampa.itbampa_school_calendar_form
+#: field:itbampa.school.calendar.holiday,school_calendar_id:0
+#: field:school.course.compute.wizard,school_calendar_id:0
+msgid "School Calendar"
+msgstr ""
+
+#. module: itbampa
+#: model:ir.ui.menu,name:itbampa.menu_itbampa_conf_school_calendar
+#: view:itbampa.school.calendar:itbampa.itbampa_school_calendar_tree
+msgid "School Calendars"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.school.calendar:itbampa.itbampa_school_calendar_form
+#: field:itbampa.school.calendar,name:0
+msgid "Session"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+msgid "Session selected"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,date_start:0
+#: field:itbampa.boards,date_start:0
+#: field:itbampa.school.calendar,date_start:0
+msgid "Start Date"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/school_calendar.py:43
+#, python-format
+msgid "Start date (%s) must be after allowed start date (%s)"
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/school_calendar.py:45
+#, python-format
+msgid "Start date (%s) must be before allowed end date (%s)"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,state:0
+#: field:itbampa.boards,state:0
+#: field:school.course.compute.wizard,state:0
+#: view:website:itbampa.informe_board
+#: view:website:itbampa.report_activity_event
+msgid "State"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,ampa_partner_type:0
+msgid "Student"
+msgstr ""
+
+#. module: itbampa
+#: view:res.partner:itbampa.itbampa_members_filter
+msgid "Students"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,message_summary:0
+msgid "Summary"
+msgstr ""
+
+#. module: itbampa
+#: model:product.template,description:itbampa.product_product_activity_1_product_template
+#: model:product.template,description_sale:itbampa.product_product_activity_1_product_template
+msgid "Tarifa diària per al servei mensual de mejador."
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.report.wizard:itbampa.lunch_wizard_monthly_form_view
+msgid "This Wizards lets you select the required School Calendar that\n"
+"							will be used to calculate monthly activity attendance grouped by months."
+msgstr ""
+
+#. module: itbampa
+#: view:school.course.compute.wizard:itbampa.compute_course_wizard_form_view
+msgid "This Wizards lets you to update the current course for each\n"
+"							student,\n"
+"							according to the selected Calendar from which this Wizard\n"
+"							has\n"
+"							been called, and the birthdate and any lagging course for each\n"
+"							student."
+msgstr ""
+
+#. module: itbampa
+#: code:addons/itbampa/board.py:86
+#, python-format
+msgid "Too many opened boards."
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.report.wizard.line,total:0
+#: view:website:itbampa.activity_monthly_report
+msgid "Total"
+msgstr ""
+
+#. module: itbampa
+#: field:school.course.compute.wizard,total_computed:0
+msgid "Total Computed"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,total_partners:0
+msgid "Total Registered"
+msgstr ""
+
+#. module: itbampa
+#: selection:res.partner,ampa_partner_type:0
+msgid "Tutor"
+msgstr ""
+
+#. module: itbampa
+#: view:res.partner:itbampa.itbampa_members_filter
+#: view:res.partner:itbampa.view_partner_form
+msgid "Tutors"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.boards,message_unread:0
+msgid "Unread Messages"
+msgstr ""
+
+#. module: itbampa
+#: view:itbampa.activity.event:itbampa.itbampa_activity_form
+msgid "Update Members"
+msgstr ""
+
+#. module: itbampa
+#: view:school.course.compute.wizard:itbampa.compute_course_wizard_form_view
+msgid "Update students's current course"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.event,user_id:0
+msgid "User id"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.report.wizard.line,wizard_id:0
+msgid "Wizard id"
+msgstr ""
+
+#. module: itbampa
+#: field:itbampa.activity.report.wizard.month,year:0
+#: field:itbampa.school.calendar,year:0
+msgid "Year"
+msgstr ""
+
+#. module: itbampa
+#: selection:school.course.compute.wizard,state:0
+msgid "final"
+msgstr ""
+
+#. module: itbampa
+#: selection:school.course.compute.wizard,state:0
+msgid "inici"
+msgstr ""
+

@@ -14,7 +14,7 @@ class SchoolCalendarHoliday(models.Model):
     name = fields.Char(required=True)
     date_start = fields.Date(string="Date Start", required=True)
     date_end = fields.Date(string="Date End", required=True)
-    school_calendar_id = fields.Many2one('itbampa.school.calendar', "School Calendar")
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', string="School Calendar")
 
 class SchoolCalendar(models.Model):
     '''School Calendar
@@ -69,7 +69,7 @@ class SchoolCalendar(models.Model):
         :param dend: End date for counting.
         :return Integer. Lective days between the two dates.
 
-        The most usual purpose of this method is to count lective days, i.e. days with open lunch service.
+        The most usual purpose of this method is to count lective days, i.e. days with open activity service.
         """
         date_start = fields.Date.from_string(self.date_start)
         date_end = fields.Date.from_string(self.date_end)
@@ -79,6 +79,15 @@ class SchoolCalendar(models.Model):
             date_end = dend
         rr = self.get_rrules(date_start, date_end)
         return len(list(rr))
+    
+    @api.model
+    def get_school_calendar_from_date(self, xdate):
+        sdate = xdate.isoformat()
+        calendar_obj = self.search([
+            ('date_start', '<=', sdate),
+            ('date_end', '>=', sdate)
+            ], limit=1)
+        return calendar_obj
 
     @api.multi
     def _get_lective_dates(self):
@@ -104,10 +113,10 @@ class SchoolCalendar(models.Model):
 
     name = fields.Char(string="Session", compute='_get_name', store=True)
     year = fields.Integer(string="Year", required=True)
-    date_start = fields.Date("Start Date", required=True)
-    date_end = fields.Date("End Date", required=True)
-    holiday_ids = fields.One2many('itbampa.school.calendar.holiday', 'school_calendar_id')
-    lective_dates = fields.Integer("Lective Days", compute='_get_lective_dates')
+    date_start = fields.Date(string="Start Date", required=True)
+    date_end = fields.Date(string="End Date", required=True)
+    holiday_ids = fields.One2many('itbampa.school.calendar.holiday', 'school_calendar_id', string="Holiday Ranges")
+    lective_dates = fields.Integer(string="Lective Days", compute='_get_lective_dates')
 
 class ComputeCourseWizard(models.TransientModel):
     _name = 'school.course.compute.wizard'
@@ -115,7 +124,7 @@ class ComputeCourseWizard(models.TransientModel):
     def _get_default_school_calendar(self):
         return self.env['itbampa.school.calendar'].browse(self._context.get('active_id'))
 
-    school_calendar_id = fields.Many2one('itbampa.school.calendar', default=_get_default_school_calendar)
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', default=_get_default_school_calendar, string="School Calendar")
     state = fields.Selection([('inici', 'inici'), ('final', 'final')], default='inici')
     total_computed = fields.Integer("Total Computed", readonly=True)
 

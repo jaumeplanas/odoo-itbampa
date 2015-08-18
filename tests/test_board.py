@@ -2,7 +2,7 @@
 from openerp.tests.common import TransactionCase
 from openerp.exceptions import ValidationError
 from openerp import fields
-from datetime import date, timedelta
+from datetime import timedelta
 
 class TestBoard(TransactionCase):
     
