@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 # from openerp.exceptions import ValidationError
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -16,12 +16,12 @@ class ActivityEventPartner(models.Model):
     activity_id = fields.Many2one('itbampa.activity.event', string="Activity Event", required=True, ondelete='cascade')
     partner_id = fields.Many2one(
             'res.partner', string="Member", domain="[('ampa_partner_type', 'in', ['tutor', 'student'])]", required=True, ondelete='cascade')
-    partner_current_course = fields.Selection("Current Course", related="partner_id.current_course")
-    comment = fields.Char("Comment")
+    partner_current_course = fields.Selection(related="partner_id.current_course", string="Current Course")
+    comment = fields.Char(string="Comment")
     activity_product_id = fields.Many2one('product.product', string="Product", required=True, ondelete='cascade')
     # For graph view
     date_start = fields.Date(string="Date Start", related='activity_id.date_start', store=True)
-    school_calendar_id = fields.Many2one('itbampa.school.calendar', related='activity_id.school_calendar_id', store="True")
+    school_calendar_id = fields.Many2one('itbampa.school.calendar', related='activity_id.school_calendar_id', string="School Calendar", store="True")
 
 class ActivityEvent(models.Model):
 
@@ -34,7 +34,7 @@ class ActivityEvent(models.Model):
     @api.depends('partner_ids')
     def _compute_total_partners(self):
         for record in self:
-            record.total_partners = len(record.partner_ids) # @
+            record.total_partners = len(record.partner_ids)  # 
 
     @api.one
     @api.depends('date_start')
@@ -45,6 +45,16 @@ class ActivityEvent(models.Model):
         self.name = odate.strftime(fmt)
         ocalendar = self.env['itbampa.school.calendar'].get_school_calendar_from_date(odate)
         self.school_calendar_id = ocalendar
+
+    @api.onchange('date_start')
+    def _check_school_calendar_id(self):
+        if not self.school_calendar_id:
+            return {
+                'warning': {
+                    'title': _('No School Calendar associated'),
+                    'message': _('No School Calendar associated to this date. Please consider to create a new School Calendar that includes this date or to change the date.')
+                    }
+                }
             
 
     @api.onchange('activity_type_id')
@@ -167,7 +177,7 @@ class LunchReportWizard(models.TransientModel):
     school_calendar_id = fields.Many2one('itbampa.school.calendar', string="School Calendar", required=True, default=_get_default_school_calendar)
     month_id = fields.Many2one('itbampa.activity.report.wizard.month', required=True, ondelete="cascade", string="Mes")
     line_ids = fields.One2many('itbampa.activity.report.wizard.line', 'wizard_id', compute='_get_line_ids')
-    lective_days = fields.Integer("Total Lective Days", compute='_get_line_ids')
+    lective_days = fields.Integer(string="Total Lective Days", compute='_get_line_ids')
     
     
     @api.multi
@@ -186,9 +196,9 @@ class LunchReportWizardLines(models.TransientModel):
     _order = 'partner, product'
     
     wizard_id = fields.Many2one('itbampa.activity.report.wizard', ondelete="cascade")
-    partner = fields.Char("Member")
-    product = fields.Char("Product")
-    total = fields.Integer("Total")
+    partner = fields.Char(string="Member")
+    product = fields.Char(string="Product")
+    total = fields.Integer(string="Total")
 
 class LunchReportWizardMonths(models.TransientModel):
     _name = 'itbampa.activity.report.wizard.month'
@@ -200,9 +210,9 @@ class LunchReportWizardMonths(models.TransientModel):
         if self.year > 0 and self.month > 0:
             self.name = date(self.year, self.month, 1).strftime('%B %Y')
     
-    name = fields.Char("Month", compute='_get_month_name', store=True)
-    year = fields.Integer()
-    month = fields.Integer()   
+    name = fields.Char(string="Month", compute='_get_month_name', store=True)
+    year = fields.Integer(string="Year")
+    month = fields.Integer(string="Month")   
     
 class LunchCustomReport(models.AbstractModel):
     _name = 'report.itbampa.activity_monthly_report'

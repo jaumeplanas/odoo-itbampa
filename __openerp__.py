@@ -36,6 +36,7 @@
         'view/school_calendar_view.xml',
         'view/activity_view.xml',
         'workflow/activity_event_wkf.xml',
+        'view/product_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

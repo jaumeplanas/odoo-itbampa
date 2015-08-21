@@ -11,8 +11,6 @@
 					<field name="ampa_partner_type" />
 					<field attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"
 						name="current_course" />
-					<field attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"
-						name="billing_partner_id" />
 					<field invisible="1" name="user_id" />
 				</tree>
 			</field>
@@ -50,7 +48,8 @@
 									name="billing_partner_id" />
 							</group>
 							<group>
-								<field attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"
+								<field
+									attrs="{'invisible': [('ampa_partner_type', '!=', 'student')], 'required': [('ampa_partner_type', '=', 'student')]}"
 									name="ampa_birthdate" />
 								<field attrs="{'invisible': [('ampa_partner_type', '!=', 'student')]}"
 									name="course_lag" />
@@ -84,10 +83,13 @@
 					</page>
 					<page string="Activities">
 						<group string="Activities">
-							<field name="activity_partner_ids" nolabel="1">
+							<field name="activity_partner_ids" nolabel="1"
+								context="{'default_billing_partner_id': billing_partner_id}">
 								<tree editable="bottom">
 									<field name="activity_type_id" />
-									<field name="product_id" />
+									<field name="product_id"
+										domain="[('categ_id', 'child_of', %(product_category_activity)d)]"></field>
+									<field name="billing_partner_id" domain="[('ampa_partner_type', '=', 'tutor')]"></field>
 								</tree>
 							</field>
 						</group>
@@ -100,7 +102,8 @@
 			<field name="name">Members</field>
 			<field name="res_model">res.partner</field>
 			<field name="search_view_id" ref="itbampa_members_filter" />
-			<field name="context">{"search_default_student": 1, "default_ampa_partner_type": "student"}</field>
+			<field name="context">{"search_default_student": 1,
+				"default_ampa_partner_type": "student"}</field>
 		</record>
 		<record id="action_membership_members_view_tree" model="ir.actions.act_window.view">
 			<field eval="2" name="sequence" />

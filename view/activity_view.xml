@@ -112,7 +112,7 @@
 								name="partner_ids" nolabel="1">
 								<tree editable="bottom" default_order="partner_current_course, partner_id">
 									<field name="partner_id" />
-									<field name="partner_current_course"></field>
+									<field name="partner_current_course" string="Current Course"></field>
 									<field domain="[('categ_id', 'child_of', %(product_category_activity)d)]" 
 										name="activity_product_id" />
 									<field name="comment" />
@@ -136,7 +136,7 @@
 		</record>
 		<!-- Activity actions -->
 		<record id="action_itbampa_activities" model="ir.actions.act_window">
-			<field name="name">Activities</field>
+			<field name="name">AMPA Activities</field>
 			<field name="res_model">itbampa.activity.event</field>
 			<field name="view_mode">calendar,tree,form</field>
 		</record>
@@ -160,7 +160,7 @@
 		</record>
 		<!-- Activity Menu -->
 		<menuitem action="action_itbampa_activities" id="menu_itbampa_mngt_activity"
-			name="Activities" parent="menu_itbampa_mgnt" sequence="50" />
+			name="AMPA Activities" parent="menu_itbampa_mgnt" sequence="50" />
 		<menuitem action="lunch_monthly_report_wizard" id="menu_itbampa_report_monthly"
 			name="Activity Monthly Report" parent="menu_itbampa_report" sequence="10" />
 			
@@ -218,5 +218,28 @@
 			name="By Partner, Activity, Date" parent="menu_itbampa_activity_partner_graphs" sequence="10" />
 		<menuitem action="action_activity_partner_view_2" id="menu_itbampa_activity_partner_graph_2"
 			name="By Activity, Partner, Date" parent="menu_itbampa_activity_partner_graphs" sequence="20" />
+			
+		<!-- Activity Type View -->
+		<record id="itbampa_activity_type_tree" model="ir.ui.view">
+			<field name="name">Activity Types</field>
+			<field name="model">itbampa.activity.type</field>
+			<field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="name"></field>
+				</tree>
+			</field>
+		</record>
+		<!-- Activity Type Actions -->
+		<record id="act_itbampa_activity_type" model="ir.actions.act_window">
+			<field name="name">Activity Types</field>
+			<field name="res_model">itbampa.activity.type</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="act_itbampa_activity_type_tree">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="itbampa_activity_type_tree" />
+			<field name="act_window_id" ref="act_itbampa_activity_type" />
+		</record>
+		<!-- Activity Type Menu -->
+		<menuitem id="menu_itbampa_activity_type" name="Activity Types" parent="menu_itbampa_conf" sequence="40" action="act_itbampa_activity_type"></menuitem>
 	</data>
 </openerp>

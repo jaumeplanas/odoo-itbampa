@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Activity Type Menu -->
+		<menuitem id="menu_itbampa_product" name="Products" parent="menu_itbampa_conf" sequence="50" action="product.product_template_action"></menuitem>
+	</data>
+</openerp>
