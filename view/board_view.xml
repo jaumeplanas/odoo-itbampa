@@ -8,6 +8,74 @@
 		<report attachment="'board.pdf'" attachment_use="False" file="report_board"
 			id="report_board_html" model="itbampa.boards" name="itbampa.informe_board"
 			report_type="qweb-html" string="Print Board" />
+
+		<!-- Board Report Template -->
+		<template id="itbampa.informe_board">
+			<t t-call="report.html_container">
+				<t t-as="o" t-foreach="docs">
+					<t t-call="report.internal_layout">
+						<div class="page">
+							<h1 t-field="o.name" />
+							<div class="row mb32">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>From</th>
+											<th>To</th>
+											<th>State</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<span t-field="o.date_start" />
+											</td>
+											<td>
+												<span t-field="o.date_end" />
+											</td>
+											<td>
+												<span t-field="o.state" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row mb32">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Member</th>
+											<th>Role</th>
+											<th>Mobile</th>
+											<th>Email</th>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-as="m" t-foreach="o.members">
+											<tr>
+												<td>
+													<span t-field="m.partner" />
+												</td>
+												<td>
+													<span t-field="m.role" />
+												</td>
+												<td>
+													<span t-field="m.mobile" />
+												</td>
+												<td>
+													<span t-field="m.email" />
+												</td>
+											</tr>
+										</t>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
 		<!-- Tree View for Boards -->
 		<record id="itbampa_boards_tree" model="ir.ui.view">
 			<field name="name">Boards</field>
@@ -21,6 +89,7 @@
 				</tree>
 			</field>
 		</record>
+
 		<!-- Form View for Boards -->
 		<record id="itbampa_boards_form" model="ir.ui.view">
 			<field name="name">Boards</field>
@@ -62,6 +131,7 @@
 				</form>
 			</field>
 		</record>
+
 		<!-- Window actions -->
 		<record id="action_itbampa_boards" model="ir.actions.act_window">
 			<field name="name">Boards</field>
@@ -77,6 +147,7 @@
 			<field name="view_id" ref="itbampa_boards_form" />
 			<field name="act_window_id" ref="action_itbampa_boards" />
 		</record>
+
 		<!-- Tree View for Board Members -->
 		<record id="itbampa_board_members_tree" model="ir.ui.view">
 			<field name="name">Board Members</field>
@@ -90,6 +161,7 @@
 				</tree>
 			</field>
 		</record>
+
 		<!-- Form View for Board Members -->
 		<record id="itbampa_board_members_form" model="ir.ui.view">
 			<field name="name">Board Members</field>
@@ -105,6 +177,7 @@
 				</form>
 			</field>
 		</record>
+
 		<!-- Menu -->
 		<menuitem action="action_itbampa_boards" id="menu_itbampa_mgnt_boards"
 			name="Boards" parent="menu_itbampa_mgnt" sequence="20" />

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Activity Partner Graph Views -->
+		<record id="itbampa_activity_partner_graph_1" model="ir.ui.view">
+			<field name="name">Activity Graph by Partner, Activity, Date</field>
+			<field name="model">itbampa.activity.event.partner</field>
+			<field name="arch" type="xml">
+				<graph type="pivot">
+					<field name="partner_id" type="row"></field>
+					<field name="product_id" type="row"></field>
+					<field name="school_calendar_id" type="row"></field>
+					<field name="date_start" type="row" interval="month"></field>
+				</graph>
+			</field>
+		</record>
+		<record id="itbampa_activity_partner_graph_2" model="ir.ui.view">
+			<field name="name">Activity Graph by Activity, Partner, Date</field>
+			<field name="model">itbampa.activity.event.partner</field>
+			<field name="arch" type="xml">
+				<graph type="pivot">
+					<field name="product_id" type="row"></field>
+					<field name="partner_id" type="row"></field>
+					<field name="school_calendar_id" type="row"></field>
+					<field name="date_start" type="row" interval="month"></field>
+				</graph>
+			</field>
+		</record>
+		<!-- Activity Partner actions -->
+		<record id="action_activity_partner_view_1" model="ir.actions.act_window">
+			<field name="name">Activities by Partner, Activity, Date</field>
+			<field name="res_model">itbampa.activity.event.partner</field>
+			<field name="view_mode">graph</field>
+		</record>
+		<record id="action_activity_partner_view_2" model="ir.actions.act_window">
+			<field name="name">Activities by Activity, Partner, Date</field>
+			<field name="res_model">itbampa.activity.event.partner</field>
+			<field name="view_mode">graph</field>
+		</record>
+		<record id="action_activity_partner_view_graph_1" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="itbampa_activity_partner_graph_1" />
+			<field name="act_window_id" ref="action_activity_partner_view_1" />
+		</record>
+		<record id="action_activity_partner_view_graph_2" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">graph</field>
+			<field name="view_id" ref="itbampa_activity_partner_graph_2" />
+			<field name="act_window_id" ref="action_activity_partner_view_2" />
+		</record>
+		<!-- Activity Partner Menu -->
+		<menuitem id="menu_itbampa_activity_partner_graphs" name="Activity Summaries" parent="menu_itbampa_report" sequence="20"></menuitem>
+		<menuitem action="action_activity_partner_view_1" id="menu_itbampa_activity_partner_graph_1"
+			name="By Partner, Activity, Date" parent="menu_itbampa_activity_partner_graphs" sequence="10" />
+		<menuitem action="action_activity_partner_view_2" id="menu_itbampa_activity_partner_graph_2"
+			name="By Activity, Partner, Date" parent="menu_itbampa_activity_partner_graphs" sequence="20" />
+		
+	</data>
+</openerp>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Activity Daily Report -->
+		<report attachment="'LlistatActivitat'+object.date_start+'.pdf'"
+			attachment_use="False" id="report_activity_event_pdf" model="itbampa.activity.event"
+			name="itbampa.report_activity_event" report_type="qweb-pdf" string="Print Activity Event" />
+
+		<!-- Activity Daily Template -->
+		<template id="itbampa.report_activity_event">
+			<t t-call="report.html_container">
+				<t t-as="o" t-foreach="docs">
+					<t t-call="report.internal_layout">
+						<div class="page">
+							<h1>
+								<i class="fa fa-calendar"></i>
+								Activity Attendance Report
+							</h1>
+							<div class="row mb8">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Date</th>
+											<th>Count</th>
+											<th>State</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<span t-field="o.name" />
+											</td>
+											<td>
+												<span t-field="o.total_partners" />
+											</td>
+											<td>
+												<span t-field="o.state" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Is missing?</th>
+											<th>Name</th>
+											<th>Product</th>
+											<th>Comment</th>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-as="m" t-foreach="o.partner_ids">
+											<tr>
+												<td>
+													<i class="fa fa-square-o"></i>
+												</td>
+												<td>
+													<span t-field="m.partner_id" />
+												</td>
+												<td>
+													<span t-field="m.product_id" />
+												</td>
+												<td>
+													<span t-field="m.comment" />
+												</td>
+											</tr>
+										</t>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+	</data>
+</openerp> 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Report Wizard -->
+		<record model="ir.ui.view" id="activity_quick_select_wizard_form_view">
+			<field name="name">Member Quick Selection Wizard</field>
+			<field name="model">itbampa.activity.quick.select.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Member Quick Selection Wizard">
+					<group>
+						<p>
+							This Wizards lets you quickly select Members for the Activity
+							from which this Wizard has been called.
+							When clicking
+							<strong>Save Quick Selection</strong>
+							, members will be added using default product for the activity,
+							shown below.
+						</p>
+					</group>
+					<group col="8">
+						<field name="product_id" readonly="1"></field>
+					</group>
+					<group string="Members">
+						<field name="partner_ids" nolabel="1"
+							context="{'tree_view_ref': 'itbampa.itbampa_members_tree', 'search_view_ref': 'itbampa.itbampa_members_filter'}"></field>
+					</group>
+					<footer>
+						<button name="save_quick_select" type="object" class="oe_highlight"
+							string="Save Quick Selection" icon="STOCK_SAVE">
+						</button>
+						<button special="cancel" string="Cancel"></button>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="action_activity_quick_select_wizard" model="ir.actions.act_window">
+			<field name="name">Member Quick Selection Wizard</field>
+			<field name="res_model">itbampa.activity.quick.select.wizard</field>
+			<field name="target">new</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="action_activity_quick_select_wizard_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="activity_quick_select_wizard_form_view" />
+			<field name="act_window_id" ref="action_activity_quick_select_wizard" />
+		</record>
+	</data>
+</openerp>

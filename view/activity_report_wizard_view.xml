@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Report Action -->
+		<report id="activity_monthly_report_action" model="itbampa.activity.report.wizard"
+			string="Monthly Activity Report" report_type="qweb-pdf"
+			name="itbampa.activity_monthly_report" file="itbampa.activity_monthly_report"
+			attachment_use="False" attachment="'ActivityMonthlyReport.pdf'" />
+			
+		<!-- Report Template -->
+		<template id="itbampa.activity_monthly_report">
+			<t t-call="report.html_container">
+				<t t-call="report.internal_layout">
+					<div class="page">
+						<t t-foreach="docs" t-as="d">
+							<div class="row">
+								<h1>
+									Report for <span t-field="d.school_calendar_id"></span>
+								</h1>
+							</div>
+							<div class="row mt16">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Month</th>
+											<th>Lective Days</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<span t-field="d.month_id"></span>
+											</td>
+											<td>
+												<span t-field="d.lective_days"></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row mt16">
+								<table class="table table-condensed">
+									<thead>
+										<tr class="text-center">
+											<th>Member</th>
+											<th>Product</th>
+											<th>Total</th>
+										</tr>
+									</thead>
+									<t t-foreach="d.line_ids" t-as="l">
+										<tbody>
+											<tr>
+												<td>
+													<span t-field="l.partner"></span>
+												</td>
+												<td>
+													<span t-field="l.product"></span>
+												</td>
+												<td>
+													<span t-field="l.total"></span>
+												</td>
+											</tr>
+										</tbody>
+									</t>
+								</table>
+							</div>
+						</t>
+					</div>
+				</t>
+			</t>
+		</template>
+
+		<!-- Report Wizard -->
+		<record model="ir.ui.view" id="activity_wizard_monthly_form_view">
+			<field name="name">Monthly Activity Report Wizard</field>
+			<field name="model">itbampa.activity.report.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Monthly Activity Report Wizard">
+					<group>
+						<p>
+							This Wizards lets you select the required School Calendar that
+							will be used to calculate monthly activity attendance grouped by months.
+						</p>
+					</group>
+					<group>
+						<field name="school_calendar_id" string="Session selected"></field>
+						<field name="month_id" string="Month" options='{"no_open": true, "no_create": true, "no_edit": true}'></field>
+						<field name="lective_days"></field>
+					</group>
+					<group string="Monthly Activity Attendance">
+						<field name="line_ids" nolabel="1">
+							<tree create="0" edit="0" delete="0">
+								<field name="partner"></field>
+								<field name="product"></field>
+								<field name="total"></field>
+							</tree>						
+						</field>
+					</group>
+
+					<footer>
+						<button name="print_monthly_report" type="object" class="oe_highlight"
+							string="Print Monthly Activity Attendance" icon="STOCK_PRINT">
+						</button>
+						<button special="cancel" string="Cancel"></button>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="activity_monthly_report_wizard" model="ir.actions.act_window">
+			<field name="name">Activity Monthly Report Wizard</field>
+			<field name="res_model">itbampa.activity.report.wizard</field>
+			<field name="target">new</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="activity_monthly_report_wizard_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="activity_wizard_monthly_form_view" />
+			<field name="act_window_id" ref="activity_monthly_report_wizard" />
+		</record>
+		<menuitem action="activity_monthly_report_wizard" id="menu_itbampa_report_monthly"
+			name="Activity Monthly Report" parent="menu_itbampa_report" sequence="10" />
+	</data>
+</openerp>
