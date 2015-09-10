@@ -101,6 +101,7 @@
 						<button name="print_monthly_report" type="object" class="oe_highlight"
 							string="Print Monthly Activity Attendance" icon="STOCK_PRINT">
 						</button>
+						<button name="create_invoices" type="object" class="oe_highlight" string="Create Invoices"></button>
 						<button special="cancel" string="Cancel"></button>
 					</footer>
 				</form>

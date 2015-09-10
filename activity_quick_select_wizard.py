@@ -36,7 +36,11 @@ class ActivityQuickSelectWizard(models.TransientModel):
         # Partners in dest not in orig -> add with defaults
         add_set = dest_partners_set - orig_partners_set
         for p in add_set:
-            billing_id = self.env['res.partner'].browse([p]).get_default_billing_partner_id()
+            partner_id = self.env['res.partner'].browse([p])
+            billing_id = partner_id.get_default_billing_partner_id()
+            if billing_id is None:
+                err_msg = _("Member {} (AMPA Partner Type = {}) has no valid Billing Partner defined.").format(partner_id.name, partner_id.ampa_partner_type)
+                raise ValidationError(err_msg)
             pids.append([0, None, {
                 'partner_id': p,
                 'billing_partner_id': billing_id.id,

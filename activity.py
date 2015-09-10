@@ -2,8 +2,8 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
-#from datetime import date
-#from dateutil.relativedelta import relativedelta
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 class ActivityType(models.Model):
     _name = 'itbampa.activity.type'
@@ -151,8 +151,94 @@ class ActivityEvent(models.Model):
 
     @api.one
     def action_billed(self):
-        pass
+        self.state = 'billed'
 
     # When called from code
-    # self.signal_workflow('bill_lunch_event')
+    # self.signal_workflow('bill_activity_event')
     
+    def create_invoices(self, xdate, lective_days):
+        date_start = date(xdate.year, xdate.month, 1)
+        date_end = date_start + relativedelta(day=31)
+        date_short = date_start.strftime('%b %Y')
+        events = self.env['itbampa.activity.event'].search([
+            ('date_start', '>=', date_start),
+            ('date_start', '<=', date_end),
+            ('state', '=', 'closed')
+            ])
+        res = {}
+        for event in events:
+            for p in event.partner_ids:
+                partner = p.partner_id
+                product = p.product_id
+                billing = p.billing_partner_id
+                if billing.id not in res.keys():
+                    res.update({billing.id: {}})
+                if partner.id not in res[billing.id].keys():
+                    res[billing.id].update({partner.id: {'name': partner.name, 'vals': {}}})
+                if product.id not in res[billing.id][partner.id]['vals'].keys():
+                    res[billing.id][partner.id]['vals'].update({product.id: {'name': product.name, 'price': product.list_price, 'total': 0}})
+                res[billing.id][partner.id]['vals'][product.id]['total'] += 1
+        res2 = {
+            'date_short': date_short,
+            'lective_days': lective_days,
+            'bp': False,
+            'pid': False,
+            'pname': False,
+            'prodid': False,
+            'prodname': False,
+            'prodprice': 0.0,
+            'qty': 0,
+            }
+        for bp, bpvals in res.iteritems():
+            res2['bp'] = bp
+            for p, pvals in bpvals.iteritems():
+                res2['pid'] = p
+                res2['pname'] = pvals['name']
+                for prod, prodvals in pvals['vals'].iteritems():
+                    res2['prodid'] = prod
+                    res2['prodname'] = prodvals['name']
+                    # Here you can apply discounts in res2['prodprice']
+                    res2['prodprice'] = prodvals['price']
+                    res2['qty'] = prodvals['total']
+                    self.create_single_invoice(res2)
+        
+        events.signal_workflow('bill_activity_event')
+
+    def create_single_invoice(self, res2):
+        invoice_obj = self.env['account.invoice']
+        invoice_line_obj = self.env['account.invoice.line']
+        invoice_tax_obj = self.env['account.invoice.tax']
+        
+        tagline = "{} | {} | {} ({}/{}) ".format(res2['pname'], res2['prodname'], res2['date_short'], res2['qty'], res2['lective_days'])
+
+        obp = self.env['res.partner'].browse(res2['bp'])
+        account_id = obp.property_account_receivable and obp.property_account_receivable.id or False
+        fpos_id = obp.property_account_position and obp.property_account_position.id or False
+        
+        line_value = {
+            'product_id': res2['prodid'],
+            'name': tagline
+            }
+        
+        line_dict = invoice_line_obj.product_id_change(res2['prodid'], False, res2['qty'], '', 'out_invoice', obp.id, fpos_id, price_unit=res2['prodprice'])
+        line_value.update(line_dict['value'])
+        line_value['price_unit'] = res2['prodprice']
+        line_value['quantity'] = res2['qty']
+        if line_value.get('invoice_line_tax_id', False):
+            tax_tab = [(6, 0, line_value['invoice_line_tax_id'])]
+            line_value['invoice_line_tax_id'] = tax_tab
+            
+        invoice_id = invoice_obj.create({
+            'partner_id': obp.id,
+            'account_id': account_id,
+            'fiscal_position': fpos_id or False,
+            'origin': tagline,
+            'name': tagline
+            })
+        line_value['invoice_id'] = invoice_id.id
+        invoice_line_obj.create(line_value)
+        if line_value['invoice_line_tax_id']:
+            tax_value = invoice_tax_obj.compute(invoice_id).values()
+            for tax in tax_value:
+                invoice_tax_obj.create(tax)
+                
