@@ -38,6 +38,7 @@
         'view/activity_type_view.xml',
         'view/activity_partner_view.xml',
         'view/activity_report_wizard_view.xml',
+        'view/activity_billing_wizard_view.xml',
         'view/activity_daily_report_view.xml',
         'view/activity_view.xml',
         'workflow/activity_event_wkf.xml',

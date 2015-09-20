@@ -73,15 +73,7 @@ class ActivityReportWizard(models.TransientModel):
     month_id = fields.Many2one('itbampa.activity.report.wizard.month', required=True, ondelete="cascade", string="Mes")
     line_ids = fields.One2many('itbampa.activity.report.wizard.line', 'wizard_id', compute='_get_line_ids')
     lective_days = fields.Integer(string="Total Lective Days", compute='_get_line_ids', store=True)
-    
-    @api.multi
-    def create_invoices(self):
-        y = self.month_id.year
-        m = self.month_id.month
-        adate = date(y, m, 1)
-        self.env['itbampa.activity.event'].create_invoices(xdate = adate, lective_days = self.lective_days)        
-        return {'type':'ir.actions.act_window_close'}
-    
+        
     @api.multi
     def print_monthly_report(self):
         return {

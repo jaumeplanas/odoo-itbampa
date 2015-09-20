@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Activity Billing Wizard -->
+		<record model="ir.ui.view" id="activity_billing_wizard_form_view">
+			<field name="name">Activity Billing Wizard</field>
+			<field name="model">itbampa.activity.billing.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Activity Billing Wizard">
+					<group>
+						<p>
+							This Wizards will generate invoices for outstanding closed activities on or before due date.
+							Due date will be automatically adjusted to the last day of previous month to ensure full month billing.
+						</p>
+					</group>
+					<group>
+						<field name="due_date"></field>
+					</group>
+					<footer>
+						<button name="create_invoices" type="object" class="oe_highlight"
+							string="Generate Activity Invoices" icon="STOCK_PRINT">
+						</button>
+						<button special="cancel" string="Cancel"></button>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="activity_billing_wizard_action" model="ir.actions.act_window">
+			<field name="name">Activity Billing Wizard</field>
+			<field name="res_model">itbampa.activity.billing.wizard</field>
+			<field name="target">new</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="activity_billing_wizard_action_form">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="activity_billing_wizard_form_view" />
+			<field name="act_window_id" ref="activity_billing_wizard_action" />
+		</record>
+		<menuitem action="activity_billing_wizard_action" id="menu_itbampa_activity_billing_wizard"
+			name="Activity Billing Wizard" parent="menu_itbampa_mgnt" sequence="50" />
+	</data>
+</openerp>

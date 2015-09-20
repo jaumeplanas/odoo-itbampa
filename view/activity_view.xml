@@ -30,7 +30,7 @@
 							type="workflow" />
 						<field name="state" widget="statusbar" />
 					</header>
-					<sheet>
+					<group>
 						<div class="oe_title">
 							<h1>
 								<label for="name" string="Fitxa de l'activitat del dia" />
@@ -43,16 +43,16 @@
 							<button name="update_with_subscribed" string="Update Members"
 								type="object" class="fa fa-users"></button>
 						</div>
-						<separator string="General Info"></separator>
-						<group col="4">
+					</group>
+					<group string="General Info" col="4">
 							<field name="activity_type_id" />
 							<field attrs="{'readonly': [('state', '!=', 'open')]}"
 								name="date_start" string="Date" />
 							<field name="total_partners" />
 							<field name="school_calendar_id"></field>
 							<field name="activity_product_id" invisible="1"></field>
-						</group>
-						<group string="Members">
+					</group>
+					<group string="Members">
 							<field attrs="{'readonly': [('state', '!=', 'open')]}"
 								name="partner_ids" nolabel="1"
 								context="{'default_product_id': activity_product_id}">
@@ -62,15 +62,15 @@
 									<field domain="[('is_ampa_product', '=', True)]" name="product_id" />
 									<field name="billing_partner_id"></field>
 									<field name="comment" />
+									<field name="invoice_id"></field>
 								</tree>
 							</field>
-						</group>
-						<group>
+					</group>
+					<group>
 							<button name="%(action_activity_quick_select_wizard)d"
 								string="Quick Select" type="action" class="fa fa-users oe_save_only"
 								context="{'default_product_id': activity_product_id}" states="open"></button>
-						</group>
-					</sheet>
+					</group>
 				</form>
 			</field>
 		</record>
@@ -82,7 +82,7 @@
 			<field name="arch" type="xml">
 				<calendar all_day="all_day" color="activity_type_id"
 					date_start="date_start" display="[activity_type_id]" quick_add="0"
-					string="Activities">
+					string="Activities" event_open_popup="0">
 					<field name="activity_type_id" />
 				</calendar>
 			</field>

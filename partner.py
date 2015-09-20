@@ -36,11 +36,18 @@ class Partner(models.Model):
             res = None
             if self.ampa_partner_type == 'student':
                 for x in self.partner_tutor_ids:
-                    if len(x.bank_ids) > 0:
+                    if x.customer_payment_mode:
+                        if len(x.bank_ids) > 0:
+                            res = x
+                            break
+                    else:
                         res = x
                         break
             elif self.ampa_partner_type == 'tutor':
-                if len(self.bank_ids) > 0:
+                if self.customer_payment_type:
+                    if len(self.bank_ids) > 0:
+                        res = self
+                else:
                     res = self
         return res
     
