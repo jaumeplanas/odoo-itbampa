@@ -6,7 +6,7 @@
 			string="Monthly Activity Report" report_type="qweb-pdf"
 			name="itbampa.activity_monthly_report" file="itbampa.activity_monthly_report"
 			attachment_use="False" attachment="'ActivityMonthlyReport.pdf'" />
-			
+
 		<!-- Report Template -->
 		<template id="itbampa.activity_monthly_report">
 			<t t-call="report.html_container">
@@ -15,7 +15,8 @@
 						<t t-foreach="docs" t-as="d">
 							<div class="row">
 								<h1>
-									Report for <span t-field="d.school_calendar_id"></span>
+									Report for
+									<span t-field="d.school_calendar_id"></span>
 								</h1>
 							</div>
 							<div class="row mt16">
@@ -78,13 +79,14 @@
 				<form string="Monthly Activity Report Wizard">
 					<group>
 						<p>
-							This Wizards lets you select the required School Calendar that
-							will be used to calculate monthly activity attendance grouped by months.
+							<label
+								string="This Wizards lets you select the required School Calendar that will be used to calculate monthly activity attendance grouped by months."></label>
 						</p>
 					</group>
 					<group>
 						<field name="school_calendar_id" string="Session selected"></field>
-						<field name="month_id" string="Month" options='{"no_open": true, "no_create": true, "no_edit": true}'></field>
+						<field name="month_id" string="Month"
+							options='{"no_open": true, "no_create": true, "no_edit": true}'></field>
 						<field name="lective_days"></field>
 					</group>
 					<group string="Monthly Activity Attendance">
@@ -93,7 +95,7 @@
 								<field name="partner"></field>
 								<field name="product"></field>
 								<field name="total"></field>
-							</tree>						
+							</tree>
 						</field>
 					</group>
 

@@ -9,12 +9,9 @@
 				<form string="Compute Course Wizard">
 					<group states="inici">
 						<p>
-							This Wizards lets you to update the current course for each
-							student,
-							according to the selected Calendar from which this Wizard
-							has
-							been called, and the birthdate and any lagging course for each
-							student.
+							<label string="This Wizards lets you to update the current course for each student,"></label>
+							<label string="according to the selected Calendar from which this Wizard has been called,"></label>
+							<label string="and the birthdate and any lagging course for each student."></label>
 						</p>
 					</group>
 					<field name="state" invisible="1" />

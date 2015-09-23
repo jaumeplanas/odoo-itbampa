@@ -1,3 +1,4 @@
+=========================
 Configuració del servidor
 =========================
 
@@ -33,6 +34,7 @@ Un cop creada la base de dades, desactivarem el filtre d'aplicacions. Suggerim s
 * ``l10n_es_toponyms``. Tarda molt de temps.
 * ``l10n_es_partner``. Importa els bancs espanyols.
 * ``account_banking_sepa_direct_debit``, per girar rebuts SEPA.
+* ``account_payment_partner``. Afegeix el camp **Mode de pagament** de client i proveïdor.
 
 Després carregarem els mòduls que ens facin falta, com per exemple, els de
 l'IVA, tancament d'exercicis fiscals, actius, pagaments SEPA, etc.

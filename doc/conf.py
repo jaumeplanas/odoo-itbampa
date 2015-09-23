@@ -80,9 +80,15 @@ language = 'ca'
 # directories to ignore when looking for source files.
 exclude_patterns = ['_build']
 
+rst_prolog = """
+.. role:: raw-html(raw)
+   :format: html
+   
+"""
+
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
-#default_role = None
+# default_role = 'raw-html'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 #add_function_parentheses = True

@@ -9,12 +9,9 @@
 				<form string="Member Quick Selection Wizard">
 					<group>
 						<p>
-							This Wizards lets you quickly select Members for the Activity
-							from which this Wizard has been called.
-							When clicking
-							<strong>Save Quick Selection</strong>
-							, members will be added using default product for the activity,
-							shown below.
+							<label string="This Wizards lets you quickly select Members for the Activity from which this Wizard has been called."></label>
+							<label string="When clicking"></label> <strong>Save Quick Selection</strong>
+							<label string="members will be added using default product for the activity, shown below."></label>
 						</p>
 					</group>
 					<group col="8">

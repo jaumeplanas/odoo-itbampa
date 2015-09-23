@@ -9,8 +9,8 @@
 				<form string="Activity Billing Wizard">
 					<group>
 						<p>
-							This Wizards will generate invoices for outstanding closed activities on or before due date.
-							Due date will be automatically adjusted to the last day of previous month to ensure full month billing.
+							<label string="This Wizards will generate invoices for outstanding closed activities on or before due date."></label>
+							<label string="Due date will be automatically adjusted to the last day of previous month to ensure full month billing."></label>
 						</p>
 					</group>
 					<group>
