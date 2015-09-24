@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp.tests.common import TransactionCase
-from openerp.exceptions import ValidationError
+#from openerp.exceptions import ValidationError
 
 class TestPartner(TransactionCase):
     
