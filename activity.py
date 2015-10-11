@@ -44,7 +44,7 @@ class ActivityEventPartner(models.Model):
     @api.one
     @api.constrains('billing_partner_id')
     def _check_billing_partner(self):
-        if self.billing_partner_id.customer_payment_type and len(self.billing_partner_id.bank_ids) < 1:
+        if self.billing_partner_id.customer_payment_mode and len(self.billing_partner_id.bank_ids) < 1:
             raise ValidationError(
                 _("At least one Bank ID is required for Billing Member {0}").format(self.billing_partner_id.name))
 
