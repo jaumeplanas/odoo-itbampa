@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account', 'account_direct_debit'],
+    'depends': ['base', 'account_banking_sepa_direct_debit', 'account_payment_partner', 'account_accountant', 'l10n_es'],
 
     # always loaded
     'data': [

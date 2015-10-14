@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from . import test_partner, test_board, test_school_calendar
+from . import test_board
+from . import test_school_calendar

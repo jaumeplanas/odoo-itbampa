@@ -4,6 +4,10 @@ from openerp.exceptions import ValidationError
 from openerp import fields
 from datetime import timedelta
 
+#from openerp.tests.common import unittest2 
+# @unittest2.skip('reason')
+# @unittest2.expectedFailure
+
 class TestBoard(TransactionCase):
     
     def setUp(self):
