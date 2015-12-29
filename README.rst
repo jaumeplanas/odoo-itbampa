@@ -36,5 +36,6 @@ This module is maintained by Infonomia Tecnica Berga, S.L. (itberga.com)
    :target: http://www.itberga.com
    :alt: Infonomia Tecnica Berga, S.L.
 
-Open Source Information Systems solutions for the SMB and Micro Business markets, as well as for public organizations, for a better **business decision-making**.
+Open Source Information Systems solutions for the SMB and Micro-Business markets, as well as for public organizations, for a better **business decision-making**.
+
  
