@@ -44,7 +44,7 @@ class Partner(models.Model):
                         res = x
                         break
             elif self.ampa_partner_type == 'tutor':
-                if self.customer_payment_type:
+                if self.customer_payment_mode:
                     if len(self.bank_ids) > 0:
                         res = self
                 else:

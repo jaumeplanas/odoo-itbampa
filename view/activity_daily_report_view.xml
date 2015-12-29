@@ -46,6 +46,7 @@
 										<tr class="text-center">
 											<th>Is missing?</th>
 											<th>Name</th>
+											<th>Course</th>
 											<th>Product</th>
 											<th>Comment</th>
 										</tr>
@@ -58,6 +59,9 @@
 												</td>
 												<td>
 													<span t-field="m.partner_id" />
+												</td>
+												<td>
+													<span t-field="m.partner_current_course" />
 												</td>
 												<td>
 													<span t-field="m.product_id" />

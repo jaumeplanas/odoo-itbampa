@@ -2,8 +2,8 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
-from datetime import date
-from dateutil.relativedelta import relativedelta
+#from datetime import date
+#from dateutil.relativedelta import relativedelta
 
 class ActivityType(models.Model):
     _name = 'itbampa.activity.type'
@@ -18,7 +18,7 @@ class ActivityTypePartner(models.Model):
     @api.one
     @api.constrains('billing_partner_id')
     def _check_billing_partner(self):
-        if len(self.billing_partner_id.bank_ids) < 1:
+        if self.billing_partner_id.customer_payment_mode and len(self.billing_partner_id.bank_ids) < 1:
             raise ValidationError(
                 _("At least one Bank ID is required for Billing Member {0}").format(self.billing_partner_id.name))
 
@@ -40,7 +40,8 @@ class ActivityTypePartner(models.Model):
     
 class ActivityEventPartner(models.Model):
     _name = 'itbampa.activity.event.partner'
-    
+    _order = 'partner_current_course, partner_id'
+        
     @api.one
     @api.constrains('billing_partner_id')
     def _check_billing_partner(self):
@@ -61,7 +62,7 @@ class ActivityEventPartner(models.Model):
             'res.partner', string="Member", domain="[('ampa_partner_type', 'in', ['tutor', 'student'])]", required=True, ondelete='restrict')
     billing_partner_id = fields.Many2one(
             'res.partner', string="Billing Member", required=True, ondelete='restrict')
-    partner_current_course = fields.Selection(related="partner_id.current_course", string="Current Course")
+    partner_current_course = fields.Selection(related="partner_id.current_course", string="Current Course", store=True)
     comment = fields.Char(string="Comment")
     product_id = fields.Many2one('product.product', string="Product", required=True, ondelete='restrict')
     # For graph view
