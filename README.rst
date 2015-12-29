@@ -30,11 +30,12 @@ Contributors
 Maintainer
 ..........
 
-This module is maintained by Infonomia Tecnica Berga, S.L. (itberga.com)
-
 .. image:: http://www.itberga.com/images/logo.jpg
    :target: http://www.itberga.com
    :alt: Infonomia Tecnica Berga, S.L.
+   :height: 30px
+
+This module is maintained by Infonomia Tecnica Berga, S.L. (itberga.com)
 
 Open Source Information Systems solutions for the SMB and Micro-Business markets, as well as for public organizations, for a better **business decision-making**.
 
