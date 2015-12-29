@@ -8,7 +8,10 @@ ITB AMPA
 
 Basic management of:
 
-* AMPA Members
+* AMPA Members:
+
+  Two types of partners: :samp:`student` and :samp:`tutor`
+  
 * AMPA Boards
 * Lunch service outsourcing
 * SEPA payments
@@ -27,10 +30,11 @@ Contributors
 Maintainer
 ..........
 
+This module is maintained by Infonomia Tecnica Berga, S.L. (itberga.com)
+
 .. image:: http://www.itberga.com/images/logo.jpg
    :target: http://www.itberga.com
    :alt: Infonomia Tecnica Berga, S.L.
-   
-
-This module is maintained by Infonomia Te4cnica Berga, S.L. (itberga.com)
+  
+ 
 
