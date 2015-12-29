@@ -33,7 +33,6 @@ Maintainer
 .. image:: http://www.itberga.com/images/logo.jpg
    :target: http://www.itberga.com
    :alt: Infonomia Tecnica Berga, S.L.
-   :height: 30px
 
 This module is maintained by Infonomia Tecnica Berga, S.L. (itberga.com)
 
