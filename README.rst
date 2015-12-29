@@ -10,7 +10,7 @@ Basic management of:
 
 * AMPA Members:
 
-  Two types of partners: :samp:`student` and :samp:`tutor`
+  Two types of partners: ``student`` and ``tutor``
   
 * AMPA Boards
 * Lunch service outsourcing
